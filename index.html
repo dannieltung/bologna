@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laço de Bologna · 29/09–14/10 de 2026 · Bodas de 15 anos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Karla:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --notte:#151E38;      /* azul-noite tirrênico */
+  --mare:#2E7A96;       /* mar Tirreno */
+  --vino:#7A2038;       /* Aglianico del Vulture */
+  --calcare:#F6F4EE;    /* calcário da Puglia */
+  --tufo:#CBBC9C;       /* tufo dos Sassi */
+  --ink:#23262E;
+  --ink-soft:#5A5D66;
+  --linha:#DFD9CC;
+  --card:#FFFFFF;
+  --ok:#2E6B4F;
+  --warn:#9A6A1F;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Karla',sans-serif;color:var(--ink);background:var(--calcare);font-size:16.5px;line-height:1.65}
+::selection{background:var(--vino);color:#fff}
+
+h1,h2,h3,.display{font-family:'Marcellus',serif;font-weight:400;letter-spacing:.02em}
+.mono{font-family:'IBM Plex Mono',monospace}
+
+.wrap{max-width:1060px;margin:0 auto;padding:0 24px}
+section{padding:72px 0}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--mare);margin-bottom:14px}
+.eyebrow.wine{color:var(--vino)}
+h2{font-size:clamp(1.7rem,3.4vw,2.4rem);color:var(--notte);margin-bottom:18px;line-height:1.15}
+h3{font-size:1.25rem;color:var(--notte);margin-bottom:8px}
+p.lede{font-size:1.12rem;color:var(--ink);max-width:62ch}
+p+p{margin-top:12px}
+.muted{color:var(--ink-soft)}
+.small{font-size:.86rem}
+strong{font-weight:700}
+em{font-style:italic}
+a{color:var(--mare)}
+
+/* ---------- NAV ---------- */
+nav{position:sticky;top:0;background:rgba(246,244,238,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--linha);z-index:50}
+nav .wrap{display:flex;align-items:center;gap:22px;height:54px;overflow-x:auto}
+nav .brand{font-family:'Marcellus',serif;color:var(--notte);white-space:nowrap;font-size:1.02rem}
+nav a.lnk{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;white-space:nowrap}
+nav a.lnk:hover{color:var(--vino)}
+
+/* ---------- HERO ---------- */
+header.hero{background:var(--notte);color:#EDEAE2;padding:96px 0 70px;position:relative;overflow:hidden}
+header.hero::after{content:"";position:absolute;inset:auto 0 0 0;height:5px;background:linear-gradient(90deg,#4A6076 0 20%,var(--mare) 20% 40%,#31708E 40% 73%,#96502E 73% 87%,#7A2038 87% 100%)}
+.hero .kicker{font-family:'IBM Plex Mono',monospace;font-size:.74rem;letter-spacing:.28em;text-transform:uppercase;color:var(--tufo);margin-bottom:22px}
+.hero h1{font-size:clamp(2.6rem,7vw,4.6rem);line-height:1.04;color:#F4F1E8}
+.hero h1 .arrow{color:var(--tufo)}
+.hero .sub{margin-top:20px;font-size:1.15rem;max-width:56ch;color:#C9CBD4}
+.hero .facts{display:flex;flex-wrap:wrap;gap:0 36px;margin-top:38px;border-top:1px solid rgba(237,234,226,.18);padding-top:22px}
+.hero .fact{padding:6px 0}
+.hero .fact .n{font-family:'Marcellus',serif;font-size:1.7rem;color:#F4F1E8}
+.hero .fact .l{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--tufo)}
+
+/* ---------- CALENDÁRIO (assinatura) ---------- */
+.cal{margin-top:8px}
+.cal-grid{display:grid;grid-template-columns:repeat(15,1fr);gap:5px}
+.cal .d{border-radius:6px;padding:8px 4px 7px;text-align:center;color:#fff;position:relative;min-width:0}
+.cal .d .dt{font-family:'IBM Plex Mono',monospace;font-size:.78rem;font-weight:500;display:block}
+.cal .d .bs{font-size:.6rem;letter-spacing:.04em;text-transform:uppercase;opacity:.85;display:block;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.b-roma{background:var(--vino)}
+.b-napoli{background:#3E5E80}
+.b-costa{background:var(--mare)}
+.b-matera{background:#A98D5F}
+.b-itria{background:#5F7D5B}
+.b-poli{background:#2F6475}
+.b-lecce{background:var(--vino)}
+.b-dolo{background:#4A6076}
+.b-garda{background:#2E7A96}
+.b-pros{background:#5F7D5B}
+.b-coll{background:#9C7430}
+.b-vene{background:#2F6475}
+.b-tec{background:#6E7480}
+.b-ct{background:#31708E}
+.b-emi{background:#96502E}
+.b-bo{background:#7A2038}
+.cal .d.anniv{box-shadow:0 0 0 2.5px var(--calcare),0 0 0 5px var(--tufo)}
+.cal .d.anniv::after{content:"XV";position:absolute;top:-11px;right:-4px;background:var(--tufo);color:var(--notte);font-family:'IBM Plex Mono',monospace;font-size:.58rem;font-weight:500;padding:1px 5px;border-radius:99px}
+.cal-legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:14px}
+.cal-legend .li{display:flex;align-items:center;gap:7px;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:#C9CBD4}
+.cal-legend .sw{width:11px;height:11px;border-radius:3px;display:inline-block}
+
+/* ---------- CONCEITO ---------- */
+.atos{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:30px}
+.ato{background:var(--card);border:1px solid var(--linha);border-radius:10px;padding:18px 16px}
+.ato .r{font-family:'Marcellus',serif;font-size:1.05rem;color:var(--vino)}
+.ato h3{font-size:1.05rem;margin:4px 0 6px}
+.ato p{font-size:.88rem;color:var(--ink-soft);line-height:1.5}
+
+/* ---------- MAPA SVG ---------- */
+.mapbox{background:var(--card);border:1px solid var(--linha);border-radius:14px;padding:26px;margin-top:34px}
+.mapbox svg{width:100%;height:auto;display:block}
+
+/* ---------- BLOCOS ---------- */
+.bloco{background:var(--card);border:1px solid var(--linha);border-radius:14px;margin-top:30px;overflow:hidden}
+.bloco .head{padding:22px 26px;display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 18px;border-bottom:1px solid var(--linha)}
+.bloco .head .tag{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:#fff;padding:4px 10px;border-radius:99px}
+.bloco .head h3{font-size:1.45rem;margin:0}
+.bloco .head .dates{font-family:'IBM Plex Mono',monospace;font-size:.8rem;color:var(--ink-soft);margin-left:auto}
+.bloco .body{padding:22px 26px;display:grid;grid-template-columns:1.5fr 1fr;gap:26px}
+.bloco .body p{font-size:.95rem}
+.bloco .aside{border-left:1px solid var(--linha);padding-left:22px;font-size:.88rem}
+.bloco .aside h4,.bloco .col h4{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mare);margin:14px 0 6px}
+.bloco .aside h4:first-child{margin-top:0}
+.bloco .aside ul,.bloco .col ul{list-style:none}
+.bloco .aside li,.bloco .col li{padding:3px 0;border-bottom:1px dashed #EDE8DC;line-height:1.45}
+.bloco .aside li:last-child{border-bottom:none}
+.price{font-family:'IBM Plex Mono',monospace;font-size:.74rem;color:var(--ink-soft);white-space:nowrap}
+.pick{color:var(--vino);font-weight:700}
+.dias{margin-top:16px}
+.dias .dia{display:grid;grid-template-columns:86px 1fr;gap:14px;padding:9px 0;border-top:1px dashed #EDE8DC;font-size:.92rem}
+.dias .dia .dn{font-family:'IBM Plex Mono',monospace;font-size:.76rem;color:var(--vino);padding-top:2px;white-space:nowrap}
+
+/* ---------- ASSINATURAS ---------- */
+.assin{background:var(--notte);color:#E9E6DD}
+.assin h2{color:#F4F1E8}
+.assin .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin-top:30px}
+.assin .card{border:1px solid rgba(237,234,226,.2);border-radius:12px;padding:24px}
+.assin .card .num{font-family:'Marcellus',serif;font-size:2rem;color:var(--tufo)}
+.assin .card h3{color:#F4F1E8;margin:8px 0 8px}
+.assin .card p{font-size:.92rem;color:#BCC0CC}
+
+/* ---------- TABELAS ---------- */
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--linha);border-radius:12px;overflow:hidden;font-size:.9rem}
+thead th{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;text-align:left;color:#fff;background:var(--notte);padding:11px 14px}
+tbody td{padding:10px 14px;border-top:1px solid #EFEBE1;vertical-align:top}
+tbody tr:nth-child(even){background:#FBFAF6}
+td.mono,th.mono{font-family:'IBM Plex Mono',monospace;font-size:.8rem;white-space:nowrap}
+.tblwrap{overflow-x:auto;border-radius:12px}
+.total td{background:#F2EEE3;font-weight:700;border-top:2px solid var(--tufo)}
+
+/* ---------- CHECKLIST ---------- */
+.gate{background:#FBF7EC;border:1px solid var(--tufo);border-left:5px solid var(--vino);border-radius:10px;padding:18px 22px;margin:26px 0;font-size:.95rem}
+.prazo{margin-top:26px}
+.prazo h3{display:flex;align-items:baseline;gap:12px}
+.prazo h3 .dl{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.1em;color:#fff;background:var(--vino);padding:3px 10px;border-radius:99px}
+.prazo ul{list-style:none;margin-top:10px}
+.prazo li{padding:8px 0 8px 30px;border-bottom:1px dashed #E6E0D2;position:relative;font-size:.94rem}
+.prazo li::before{content:"";position:absolute;left:2px;top:14px;width:13px;height:13px;border:2px solid var(--mare);border-radius:4px}
+
+/* ---------- RISCOS ---------- */
+.risco{display:grid;grid-template-columns:210px 1fr 1fr;gap:0;background:var(--card);border:1px solid var(--linha);border-radius:0;font-size:.9rem}
+.riscos-wrap{border:1px solid var(--linha);border-radius:12px;overflow:hidden;margin-top:26px}
+.riscos-wrap .risco{border:none;border-top:1px solid #EFEBE1}
+.riscos-wrap .risco:first-child{border-top:none}
+.risco>div{padding:14px 16px}
+.risco .rname{font-weight:700;color:var(--notte);background:#FBFAF6}
+.risco .rimp{color:var(--ink-soft)}
+.risco .rmit{border-left:1px dashed var(--linha)}
+.risco .rmit::before{content:"→ ";color:var(--ok);font-weight:700}
+.risco-head{background:var(--notte)!important;color:#fff}
+.risco-head>div{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;padding:10px 16px}
+
+/* ---------- PRÁTICO ---------- */
+.prat{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:26px}
+.prat .p-card{background:var(--card);border:1px solid var(--linha);border-radius:10px;padding:18px}
+.prat .p-card h4{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mare);margin-bottom:8px}
+.prat .p-card p,.prat .p-card li{font-size:.88rem;color:var(--ink-soft)}
+.prat .p-card ul{list-style:none}
+.prat .p-card li{padding:3px 0;border-bottom:1px dashed #EDE8DC}
+.prat .p-card li:last-child{border:none}
+
+footer{background:var(--notte);color:#8E93A3;padding:40px 0;font-size:.82rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 30px;justify-content:space-between}
+
+
+/* ---------- FOTOS ---------- */
+.fotoband{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;border-bottom:1px solid var(--linha)}
+.fotoband figure{margin:0;overflow:hidden}
+.fotoband img{width:100%;height:210px;object-fit:cover;display:block;transition:transform .5s ease}
+.fotoband figure:hover img{transform:scale(1.04)}
+.fotocred{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.05em;color:var(--ink-soft);padding:7px 26px 0;text-transform:uppercase}
+@media(prefers-reduced-motion:reduce){.fotoband img{transition:none}.fotoband figure:hover img{transform:none}}
+
+
+
+/* ---------- DESTAQUES DE HOSPEDAGEM ---------- */
+.hospchip{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;background:var(--notte);color:#EDEAE2;border-radius:99px;padding:4px 11px;white-space:nowrap}
+.hospchip::before{content:"⌂ ";color:var(--tufo)}
+.troca{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.06em;text-transform:uppercase;background:#9C7430;color:#fff;border-radius:99px;padding:2px 8px;margin-left:8px;white-space:nowrap}
+.hosp-prio{font-family:'Marcellus',serif;font-size:1.15rem;color:var(--vino)}
+
+/* ---------- DIA A DIA OPERACIONAL ---------- */
+.dgroup{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--vino);margin:34px 0 4px}
+.dcard{background:var(--card);border:1px solid var(--linha);border-radius:12px;margin-top:14px;overflow:hidden}
+.dcard .dhead{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;padding:13px 20px;background:#FBFAF6;border-bottom:1px solid var(--linha)}
+.dcard .dnum{font-family:'Marcellus',serif;font-size:1.05rem;color:var(--vino);white-space:nowrap}
+.dcard .dtitle{font-weight:700;color:var(--notte)}
+.dcard .dmeta{font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--ink-soft);margin-left:auto;white-space:nowrap}
+.tl{list-style:none;padding:12px 20px 6px}
+.tl li{display:grid;grid-template-columns:66px 1fr;gap:12px;padding:5px 0;font-size:.91rem;border-bottom:1px dashed #EDE8DC}
+.tl li:last-child{border-bottom:none}
+.tl .h{font-family:'IBM Plex Mono',monospace;font-size:.74rem;color:var(--mare);padding-top:3px;white-space:nowrap}
+.specs{display:flex;flex-wrap:wrap;gap:7px;padding:2px 20px 12px}
+.specs span{font-family:'IBM Plex Mono',monospace;font-size:.66rem;background:#F2EEE3;border:1px solid var(--linha);border-radius:99px;padding:3px 10px;color:var(--ink)}
+.planb{padding:0 20px 16px;font-size:.85rem;color:var(--ink-soft)}
+.planb::before{content:"Plano B — ";font-weight:700;color:var(--warn)}
+@media(max-width:820px){.tl li{grid-template-columns:54px 1fr}}
+
+@media(max-width:820px){
+  .bloco .body{grid-template-columns:1fr}
+  .bloco .aside{border-left:none;padding-left:0;border-top:1px solid var(--linha);padding-top:16px}
+  .risco{grid-template-columns:1fr}
+  .risco .rmit{border-left:none}
+  .cal-grid{grid-template-columns:repeat(5,1fr)}
+  .fotoband img{height:120px}
+  section{padding:52px 0}
+}
+@media print{nav{display:none}header.hero{padding:40px 0}section{padding:30px 0}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="wrap">
+    <span class="brand">Laço de Bologna · MMXXVI</span>
+    <a class="lnk" href="#conceito">Conceito</a>
+    <a class="lnk" href="#rota">Rota</a>
+    <a class="lnk" href="#hospedagem">Hospedagem</a>
+    <a class="lnk" href="#diaadia">Dia a dia</a>
+    <a class="lnk" href="#assinaturas">Assinaturas</a>
+    <a class="lnk" href="#logistica">Logística</a>
+    <a class="lnk" href="#orcamento">Orçamento</a>
+    <a class="lnk" href="#reservas">Reservas</a>
+    <a class="lnk" href="#riscos">Riscos</a>
+    <a class="lnk" href="#pratico">Prático</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">Bodas de 15 anos · aventura &amp; gastronomia</div>
+    <h1>Dolomitas <span class="arrow">→</span> Ligúria <span class="arrow">→</span> Food Valley</h1>
+    <p class="sub">Um laço fechado em Bologna: a via ferrata no berço dela na melhor janela do outono, o hub de adrenalina do Garda inteiro, cinco noites sobre o mar das Cinque Terre com as bodas na sexta-feira — e o fim da viagem dentro do coração gastronômico da Itália, com a única saída civilizada das quatro emissões: 17h45.</p>
+    <div class="facts">
+      <div class="fact"><span class="n">29/09–14/10</span><span class="l">2026</span></div>
+      <div class="fact"><span class="n">15</span><span class="l">noites · 5 bases</span></div>
+      <div class="fact"><span class="n">~1.100 km</span><span class="l">de estrada · sem trem obrigatório</span></div>
+      <div class="fact"><span class="n">09/10</span><span class="l">bodas sobre a Ligúria</span></div>
+      <div class="fact"><span class="n">01/10</span><span class="l">ferrata na janela de ouro</span></div>
+      <div class="fact"><span class="n">17h45</span><span class="l">voo de volta (14/10)</span></div>
+    </div>
+
+    <div class="cal" style="margin-top:42px">
+      <div class="cal-grid" style="grid-template-columns:repeat(16,1fr)">
+        <div class="d b-dolo"><span class="dt">29</span><span class="bs">Ortisei</span></div>
+        <div class="d b-dolo"><span class="dt">30</span><span class="bs">Ortisei</span></div>
+        <div class="d b-dolo"><span class="dt">01</span><span class="bs">Ortisei</span></div>
+        <div class="d b-garda"><span class="dt">02</span><span class="bs">Riva</span></div>
+        <div class="d b-garda"><span class="dt">03</span><span class="bs">Riva</span></div>
+        <div class="d b-garda"><span class="dt">04</span><span class="bs">Riva</span></div>
+        <div class="d b-ct"><span class="dt">05</span><span class="bs">Levanto</span></div>
+        <div class="d b-ct"><span class="dt">06</span><span class="bs">Levanto</span></div>
+        <div class="d b-ct"><span class="dt">07</span><span class="bs">Levanto</span></div>
+        <div class="d b-ct"><span class="dt">08</span><span class="bs">Levanto</span></div>
+        <div class="d b-ct anniv"><span class="dt">09</span><span class="bs">Levanto</span></div>
+        <div class="d b-emi"><span class="dt">10</span><span class="bs">Modena</span></div>
+        <div class="d b-emi"><span class="dt">11</span><span class="bs">Modena</span></div>
+        <div class="d b-bo"><span class="dt">12</span><span class="bs">Bologna</span></div>
+        <div class="d b-bo"><span class="dt">13</span><span class="bs">Bologna</span></div>
+        <div class="d b-tec"><span class="dt">14</span><span class="bs">Voo 17h45</span></div>
+      </div>
+      <div class="cal-legend">
+        <span class="li"><span class="sw b-dolo"></span>Dolomitas 3n</span>
+        <span class="li"><span class="sw b-garda"></span>Garda 3n</span>
+        <span class="li"><span class="sw b-ct"></span>Cinque Terre 5n</span>
+        <span class="li"><span class="sw b-emi"></span>Emília 2n</span>
+        <span class="li"><span class="sw b-bo"></span>Bologna 2n</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= CONCEITO ================= -->
+<section id="conceito">
+  <div class="wrap">
+    <div class="eyebrow">O conceito</div>
+    <h2>Por que Bologna venceu as quatro emissões</h2>
+    <p class="lede">Todas as pontas pousavam ao meio-dia de 29/09 — o que separou foi a saída e a geografia. Bologna é a única que <strong>alcança a ferrata dolomítica na janela de ouro</strong> (pouso 11h10, montanha às 15h30 do mesmo dia), pega <strong>o Garda inteiro</strong> no caminho, coloca <strong>as bodas sobre o mar da Ligúria</strong> — e devolve, no fim, a região que é o gabarito gastronômico da Itália, com voo às <strong>17h45</strong> e a última manhã inteira. Veneza e Florença ficam para outra vida, por decisão: nenhuma amostra apressada de ícone entra no lugar de um bloco de verdade.</p>
+    <div class="atos">
+      <div class="ato"><div class="r">Ato I</div><h3>Dolomitas</h3><p>Três noites em Ortisei: Seceda e o dia inteiro de via ferrata guiada em 01/10 — o esporte de vocês, na origem, na melhor semana do outono.</p></div>
+      <div class="ato"><div class="r">Ato II</div><h3>Garda</h3><p>A capital europeia da escalada de outono: parapente tandem do Monte Baldo, canyoning no Rio Palvico, ferrata Colodri — o hedge vertical da montanha.</p></div>
+      <div class="ato"><div class="r">Ato III</div><h3>Cinque Terre</h3><p>Cinco noites em Levanto: Sentiero Azzurro, a rota alta a Portovenere, kayak, mar de ~21 °C — e as bodas de sexta-feira 09/10 com o dia inteiro sobre o Tirreno.</p></div>
+      <div class="ato"><div class="r">Ato IV</div><h3>Emília</h3><p>Modena como base: caseificio de parmigiano ao amanhecer, acetaia de balsâmico tradicional, o prosciutto em Parma — a mesa na fonte.</p></div>
+      <div class="ato"><div class="r">Ato V</div><h3>Bologna</h3><p>A Grassa como despedida: Quadrilatero, tortellini in brodo, ragù na origem — e a última manhã inteira antes do voo das 17h45.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ROTA / MAPA ================= -->
+<section id="rota" style="padding-top:0">
+  <div class="wrap">
+    <div class="eyebrow">A rota</div>
+    <h2>Um laço no norte, fechado na mesa</h2>
+    <p class="lede">Carro retirado no aeroporto de Bologna na chegada e devolvido no mesmo aeroporto 13 dias depois, ao entrar na cidade — os dois dias bolonheses são a pé, como a cidade exige. Nenhuma perna acima de ~3h45, esforço físico decrescente, e a gastronomia crescendo à medida que as pernas descansam.</p>
+
+    <div class="mapbox">
+      <svg viewBox="0 0 900 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mapa esquemático: Bologna, Ortisei, Riva del Garda, Levanto, Modena, Bologna">
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#CBBC9C"/></marker>
+        </defs>
+        <path d="M260,90 L340,45 L420,85 L500,35 L580,80 L660,50 L740,90" fill="none" stroke="#4A6076" stroke-width="2" stroke-dasharray="1 6" stroke-linecap="round" opacity=".5"/>
+        <text x="470" y="22" font-family="IBM Plex Mono" font-size="11" fill="#4A6076" opacity=".85">ALPES · DOLOMITAS</text>
+        <path d="M60,360 C 130,385 200,400 280,405" fill="none" stroke="#31708E" stroke-width="2" stroke-dasharray="1 6" stroke-linecap="round" opacity=".55"/>
+        <text x="80" y="345" font-family="IBM Plex Mono" font-size="11" fill="#31708E" opacity=".8">MAR DA LIGÚRIA</text>
+
+        <!-- pernas: BLQ -> Ortisei -> Riva -> Levanto -> Modena -> Bologna -->
+        <path d="M640,305 C 620,230 600,160 575,112" fill="none" stroke="#151E38" stroke-width="2.5" marker-end="url(#arr)"/>
+        <path d="M545,110 C 480,130 420,150 380,165" fill="none" stroke="#151E38" stroke-width="2.5" marker-end="url(#arr)"/>
+        <path d="M355,185 C 290,245 230,310 190,355" fill="none" stroke="#151E38" stroke-width="2.5" marker-end="url(#arr)"/>
+        <path d="M200,370 C 320,375 440,355 540,330" fill="none" stroke="#151E38" stroke-width="2.5" marker-end="url(#arr)"/>
+        <path d="M575,325 C 600,320 618,315 632,311" fill="none" stroke="#151E38" stroke-width="2.5" marker-end="url(#arr)"/>
+
+        <text x="585" y="210" font-family="IBM Plex Mono" font-size="10.5" fill="#5A5D66" transform="rotate(-72 585 210)">3h · A22</text>
+        <text x="435" y="128" font-family="IBM Plex Mono" font-size="10.5" fill="#5A5D66" transform="rotate(-15 435 128)">1h55</text>
+        <text x="235" y="270" font-family="IBM Plex Mono" font-size="10.5" fill="#5A5D66" transform="rotate(48 235 270)">~3h45 · a mais longa</text>
+        <text x="340" y="392" font-family="IBM Plex Mono" font-size="10.5" fill="#5A5D66">2h30 · passo da Cisa</text>
+        <text x="565" y="348" font-family="IBM Plex Mono" font-size="10.5" fill="#5A5D66">40 min</text>
+
+        <g font-family="Marcellus" font-size="17" fill="#151E38">
+          <circle cx="655" cy="312" r="9" fill="#7A2038"/><text x="673" y="327">Bologna BLQ</text>
+          <text x="673" y="345" font-family="IBM Plex Mono" font-size="10" fill="#5A5D66">chegada 11h10 · saída 17h45 · 2n no fim</text>
+          <circle cx="562" cy="100" r="9" fill="#4A6076"/><text x="582" y="95">Ortisei</text>
+          <text x="582" y="113" font-family="IBM Plex Mono" font-size="10" fill="#5A5D66">3 noites · 29/09–02/10</text>
+          <circle cx="368" cy="172" r="8" fill="#2E7A96"/><text x="285" y="158">Riva del Garda</text>
+          <text x="285" y="176" font-family="IBM Plex Mono" font-size="10" fill="#5A5D66">3 noites · 02–05</text>
+          <circle cx="185" cy="365" r="8" fill="#31708E"/><text x="95" y="395">Levanto</text>
+          <text x="95" y="413" font-family="IBM Plex Mono" font-size="10" fill="#5A5D66">5 noites · 05–10 · bodas</text>
+          <circle cx="557" cy="328" r="8" fill="#96502E"/><text x="500" y="300">Modena</text>
+          <text x="500" y="318" font-family="IBM Plex Mono" font-size="10" fill="#5A5D66">2 noites · 10–12</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- ============ BLOCO 1 · DOLOMITAS ============ -->
+    <div class="bloco">
+      <div class="head"><span class="tag b-dolo">Ato I</span><h3>Dolomitas / Val Gardena — o vertical</h3><span class="dates">ter 29/09 → sex 02/10 · carro</span><span class="hospchip">Ortisei 3n</span></div>
+      <div class="fotoband">
+        <figure><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZMxW_BJiURrkZAZGGkJfgyHSqEB30qXclmUQaYmtGhLi1tMTpBfIv1Z-9wod5EsCArOgE6331CneUUTsO-G7afcA8EHWFBO_niSurM9JtdU_cukqCILT6j8wWaZMzKNuYRXGn-4ArVD8AV7YYkbi2R1=s4800-w800-h600" alt="Val Gardena — as paredes das Odle" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
+        <figure><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZOQ4w_dMLXq_LWCHzXOcs5jNSpSJcR9s_VC0JGRd7NiXE08fP7XBAhUCWAGbepo6BVuO51171GOGI90hu93UGHgirZwXvBdyQkQWmEMLR4cgopcVznW4SxVI1YF1TdD4MZw2H7tyjSZLRpD8NtP9B1y=s4800-w800-h600" alt="Ortisei e o vale" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
+        <figure><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZNReQMLT-ZTKDHZX436jxMVXUo0VuTaPqUQshCdl4b5vkc4z0K-_nv82cVw24MkGvYU5KbMedufJxREClxqBrCzG11qYNxkg7vxURfuM2HDM482BUCuxgjwgOvxpTDnzPj_azWBpLEIAu7_teCN7Ay3=s4800-w800-h600" alt="Panorama da Val Gardena" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
+      </div>
+      <figure><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZOGgpFHyhY6S92-V-aX9-xe2aLXKEhSqUF_B4AbTTP7py2AG1a37Y4p2-LwGdv-mCcPdpMNf-NjSgHxv0UNaLVkNhmHd4EZvjGqPW2GE0zORqLuq-fyTAgx-30HM-BKVsyboPoN0ubK23DmcQ=s4800-w800-h600" alt="A crista do Seceda e as Fermeda" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
+        <figure><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZPV-RD1OkTrmm5hpBiYKXsbg7wTaSYyCkETPXi8tbHBXw5nJ-L48wPejNhUrYDziWr1HVXS8LKOPuYCObwIVn-YET4UzHWupx9JtsWU340b3k9vkL0PFsR9CnwNW4YGaC2vp0gLyEMQIqxCMw=s4800-w800-h600" alt="Seceda — 2.500 m" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
+        <figure><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZPb_XklT4RLM-dNOM6Uuj7KG9K2hTupOKcrCfT6PtMXgb_eWJ56Xen27Z3h9LJp6upfrJArh-l-jTZv3Ffw0j7GH4ie5LV9_exVuJGNxM1KCLmbU8y17skUdwp_z3CJXnRHJDY6yrqMLHOX1M0=s4800-w800-h600" alt="O balcão do Seceda sobre a Val Gardena" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
+        <div class="fotocred">Fotos: sophie541123, Michelangelo Gagliardi, Tony Huang, Sam1007sam Li, Aiden, Adam Gonda · contribuidores do Google Maps</div>
+      <div class="body">
+        <div class="col">
+          <p>Pouso 11h10, carro e 3h de estrada — chegada a Ortisei ~15h30 <strong>do próprio dia 29</strong>, com luz: é a vantagem estrutural desta emissão. A data cai na melhor janela do outono para via ferrata: teleféricos e refúgios em grade cheia, rocha aquecida, dias ainda longos. Três noites = dois dias cheios de montanha, com a permuta D2↔D3 como folga de tempo — e o Garda logo abaixo como hedge vertical se a cota alta fechar.</p>
+          <div class="dias">
+            <div class="dia"><span class="dn">D1 · ter 29/09</span><div>Chegada 15h30, passeggiata, mercado para água e barras. Briefing por telefone com o guia (rota do D3 pelo meteo). Jantar cedo de stube: canederli, speck, um Lagrein.</div></div>
+            <div class="dia"><span class="dn">D2 · qua 30/09</span><div><strong>Seceda</strong> (teleférico da própria Ortisei): a crista das Fermeda — a foto da viagem —, descida por Col Raiser via malgas do Cisles. ~9 km, 4h. Tarde de spa.</div></div>
+            <div class="dia"><span class="dn">D3 · qui 01/10</span><div><strong>Via ferrata guiada — o dia central.</strong> Dia inteiro com guia UIAGM (Catores): Piz da Cir V, Brigata Tridentina ou Sass Rigais — o guia escolhe na véspera pela condição. Kit incluso. A ferrata nasceu nestas paredes; fazer aqui é fazer na origem.</div></div>
+          </div>
+        </div>
+        <div class="aside">
+          <h4>Dormir · faixas estimadas</h4>
+          <ul>
+            <li><span class="pick">Hotel Angelo Engel</span> (centro, spa) <span class="price">~€170–210/n</span></li>
+            <li>Garni/B&amp;B familiar <span class="price">~€110–150/n</span></li>
+          </ul>
+          <h4>Mesa</h4>
+          <ul>
+            <li>Stube típica — canederli, speck, cervo</li>
+            <li>Alto Adige na taça: Lagrein, Kerner, Pinot Nero</li>
+          </ul>
+          <h4>Reservar</h4>
+          <ul>
+            <li><strong>Guia UIAGM p/ 01/10</strong> — o item mais crítico do dossiê</li>
+            <li>Hotel 3 noites — Gardena esgota o outono cedo</li>
+            <li>Grade de fechamento dos teleféricos: verificar em setembro</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ BLOCO 2 · GARDA ============ -->
+    <div class="bloco">
+      <div class="head"><span class="tag b-garda">Ato II</span><h3>Riva del Garda / Arco — ar e água</h3><span class="dates">sex 02 → seg 05/10 · carro</span><span class="hospchip">Riva del Garda 3n</span></div>
+      <div class="fotoband">
+        <figure><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZPlx4wQlTNU1XjMLzRuF9JAeIPRUQLPegxzsSY0TG6xryP363Pn9bCZVZ88HyR2ZKBof-J-3wnEEd-ZFvbHODG3OeNBuBHTI3JMzPi--JKGwaP-htACDmMsu1uBf--vRs3w1plVradGLKnnLA=s4800-w800-h600" alt="Riva del Garda entre as montanhas e o lago" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
+        <figure><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZMu9XZR7NXqAFMNe66ocQpyzuphzLGXgKvWbUXiuB3R7g9RaHHF3zvT6tmAffi3dSGeE_yAHmUlTuf5Flbh4wiu4XEmo87jZsNlrNYQg3a82-esmbxdvHHjpXDz-Z2hb-H6j0YJ0xeh8p6yNFs=s4800-w800-h600" alt="O norte do Lago di Garda" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
+        <figure><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZPA1RCSbGNP8r8kBjRQN6zUUQPTIEUvmqU9WsxbmDcbEsqYyHK0SsZDO_pJ9q2SZUnIp68QC4MtWUcdIfTAHcDzk7poN6ofNRB4p37nes8O1hI-71Jx12dqk-iG-2_LAt2YLzq3FXMdMErGmc4=s4800-w800-h600" alt="Riva del Garda — a orla" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
+      </div>
+      <figure><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZPOnsz1cp0X0MsHPTg2iroX0ksBeXrf_LUww-aHcMUCZX4j5HNysfq5ISsChc0x4hiYZgHkdFT-NR4QonuYB6kANS8ozcE-BZMSgDhg61EDpp3moPB1DBZw9ngtWJH3H_CTOaKv7Ak9AmDxKzwcuulPMQ=s4800-w800-h600" alt="O Castello di Arco na agulha de rocha" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
+        <figure><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZOGp5MxCrb61UZ5I5ex2KI982O1o9blD6yJ6YkNG8k-mpSc4WOO9W2Ile-QtJqIlRno8FAdXXbtHIEHNlP6xXXc56NDjhGvIF2wvg7fSBGKvi8l83IDf4RXELFcQs15nmTHhMykijdNtjPx6g=s4800-w800-h600" alt="Arco visto do castelo" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
+        <figure><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZPkl8rlL0OJvHHnkTOZcMod9mu1q1bNIVGn07kZ-W3DXLzlgvomGFxClkltKc9Qty9d9x5Bi492QLv8VftwHCVjcFkpkFg1LlLQTUABLUUeRRTAQ5itt8Ko23zbpxIr49n3yE4HxcDObTnn=s4800-w800-h600" alt="O Garda visto do alto do Monte Baldo — a linha de voo do tandem" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
+        <div class="fotocred">Fotos: Norbert Hermanns, Gianluca Gentile, Mariam Kareli, Ivan Čobanov, Grzegorz Iwachow, Alison Kavanagh · contribuidores do Google Maps</div>
+      <div class="body">
+        <div class="col">
+          <p>Duas horas de descida e a paisagem vira Mediterrâneo entre paredões: oliveiras, limoeiros, 65 m de altitude. Arco é a capital europeia da escalada de outono — temporada alta em outubro — o que faz deste bloco o <strong>hedge meteorológico</strong> do anterior: se a montanha alta fechou algum dia, a cota vertical desce para cá sem perda.</p>
+          <div class="dias">
+            <div class="dia"><span class="dn">D4 · sex 02/10</span><div>Descida (1h55), almoço na Piazza III Novembre, subida ao <strong>Bastione</strong> (mirante do lago), orla até Punta Lido. Confirmar tandem e canyoning.</div></div>
+            <div class="dia"><span class="dn">D5 · sáb 03/10</span><div><strong>Canyoning no Rio Palvico</strong> (~3h na água: rapéis, toboáguas, saltos opcionais — neoprene fornecido). Tarde em <strong>Arco</strong>: o castelo na agulha de rocha, o burgo dos escaladores.</div></div>
+            <div class="dia"><span class="dn">D6 · dom 04/10</span><div><strong>Parapente tandem do Monte Baldo</strong> (Malcesine, 30 min + teleférico rotatório): 20–30 min de voo com os 50 km do lago abrindo embaixo. Tarde: <strong>ferrata Colodri</strong> (fácil, 1h30, autoguiada) ou descanso merecido.</div></div>
+          </div>
+        </div>
+        <div class="aside">
+          <h4>Dormir · faixas estimadas</h4>
+          <ul>
+            <li><span class="pick">Hotel Antico Borgo</span> (Riva, centro) <span class="price">~€130–160/n</span></li>
+            <li>Agriturismo entre oliveiras (Arco) <span class="price">~€110–140/n</span></li>
+          </ul>
+          <h4>Mesa</h4>
+          <ul>
+            <li>Trota do lago, carne salada trentina</li>
+            <li>Teroldego e as bolhas Trento DOC</li>
+          </ul>
+          <h4>Reservar</h4>
+          <ul>
+            <li>Tandem — alvo dom 04, remarcável por vento (D5 manhã como reserva)</li>
+            <li>Canyoning — sáb 03</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ BLOCO 3 · CINQUE TERRE ============ -->
+    <div class="bloco">
+      <div class="head"><span class="tag b-ct">Ato III</span><h3>Cinque Terre — o mar e as bodas</h3><span class="dates">seg 05 → sáb 10/10 · carro parado + trem</span><span class="hospchip">Levanto 5n · noite das bodas</span></div>
+      <div class="fotoband">
+        <figure><img src="https://lh3.googleusercontent.com/place-photos/AG9NLjD6SHM6c8KG8mer2XLrcp_pcTN9bMZsHTgubTH_uy_sjzQjG3H8HQiwsAOjOvV-D2IE8CXQ_bZW9xY_G9vt4D0wOutNHZIqj4Gwn34RBDSJSq6VVbmA8nI4Mi9E2OVYlrm4oEarY109A9jxDg=s4800-w640-h480" alt="Levanto — a baía" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
+        <figure><img src="https://lh3.googleusercontent.com/place-photos/AG9NLjBqEBjJprmVa1Jtc8zXGgZIaSaTRSTwJ6V0hnZmHUlqNXxXQqFxMsjBeaQpTEGrmZX2xqZh43SpFcFWbqtUA4Ei9-NfdeTIj_GlYjza2SaghH4hVqyRlZLNgi1tnNVCruJCPoPrt1JIm9FJ5Q=s4800-w800-h600" alt="A costa da Ligúria" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
+        <figure><img src="https://lh3.googleusercontent.com/place-photos/AG9NLjAV9vHIVa5p99BqHMC5b4L7tkPBckIWjx5lANW9XTMfTJgcuuv7rDdtJ6jEK34znUG68p14rvxHsA5SKYXQX4YhFpqWqdqr3MH8G0mgz_pl0XT_V-JUToRWtM5Qz9nIWqtUA2gnXbwCX1P0ECM=s4800-w800-h600" alt="Levanto e o mar da Ligúria" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
+      </div>
+      <figure><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZOY1cV9aBqUoxr3avgNsKaMtinWnSLUJQtFVYysLWhA7B3J9JGZpg-4NT6zPrnGWhkXEbdbjyd0Y7c58rBkDITleFZ9uK8On3o0JjDEj1jUlX4HylsV_WKRQeRx2b3MyKb6Bfabz49gg7cDKg=s4800-w800-h600" alt="Vernazza — a chegada do Sentiero Azzurro" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
+        <figure><img src="https://lh3.googleusercontent.com/place-photos/AG9NLjCiBiYenzQ-3-0qHB7WD5Mup4jp98Itcu2zfnGJwQZijh9_3RJz-SZWJdpIhJFpkY2l_W3cxhJkshh7wDBoYn3nPoNE2S-yC4tBj-C-kXZaaD7Fj6Dqw0ZTcgePbxMDcQbigZgwwuEN4fLU=s4800-w800-h600" alt="Portovenere — San Pietro na falésia, o pôr do sol das bodas" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
+        <figure><img src="https://lh3.googleusercontent.com/place-photos/AG9NLjAcXQrHb88-_w0VDilTpq2-h2n8EfbTGnds1Ip9YHh9eJdV0T7cY0H8aVsNAKYqw9nbqQV3N-Z9XV7b3-nOVu1vXIx-EM2UHylPNh8-PiqeCY0XpnuYkj_KPdidtnJIkGpt97MYR5CfWc14=s4800-w800-h600" alt="O porto de Portovenere" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
+        <div class="fotocred">Fotos: Alessio Rezzano, Berthold Schwarz, Marina Francisco, Astrit Myrtaj, Thomas Großer, Suhas Dubey · contribuidores do Google Maps</div>
+      <div class="body">
+        <div class="col">
+          <p>Cinco noites em <strong>Levanto</strong> — a vila-portão logo antes da primeira das cinco: estacionamento real (o carro dorme a semana), trem de 4 minutos a Monterosso, praia própria e metade do preço das vilas. A aventura muda de forma, não de dose: trekking de falésia, kayak, mergulho num mar de ~21 °C — e <strong>as bodas de sexta-feira, 09/10, com o dia inteiro sobre o Tirreno</strong>.</p>
+          <div class="dias">
+            <div class="dia"><span class="dn">D7 · seg 05/10</span><div>Chegada ~12h30 (a perna mais longa, ~3h45, com almoço em Cremona ou Parma no caminho). Tarde: trem a <strong>Monterosso</strong>, primeiro mergulho, focaccia de esquina.</div></div>
+            <div class="dia"><span class="dn">D8 · ter 06/10</span><div><strong>Sentiero Azzurro</strong>: Monterosso→Vernazza→Corniglia — os dois trechos clássicos de falésia (~7 km, 4h, degraus sérios). Gelato em Corniglia, trem de volta, jantar de acciughe em Monterosso.</div></div>
+            <div class="dia"><span class="dn">D9 · qua 07/10</span><div><strong>Kayak</strong> pela costa (grutas e enseadas de Monterosso/Vernazza, meia jornada) + tarde de praia em Levanto. Alternativa: barco a Portovenere com volta panorâmica.</div></div>
+            <div class="dia"><span class="dn">D10 · qui 08/10</span><div>Dia leve por desenho: <strong>Punta Mesco</strong> (Levanto→Monterosso pela costa, 2h30) ou Manarola/Riomaggiore de trem com o Sentiero di Manarola pelos vinhedos heroicos. Vinho: um Sciacchetrà de sobremesa — a Ligúria também engarrafa vertical.</div></div>
+            <div class="dia"><span class="dn">D11 · sex 09/10 — as bodas</span><div><strong>A rota alta Riomaggiore→Portovenere</strong> (~5h, o balcão contínuo mais espetacular da costa, quase vazio) — ou, em versão suave, Manarola e barco. Fim de tarde em <strong>Portovenere</strong>: San Pietro na ponta da falésia ao pôr do sol. Jantar em Vernazza ou Levanto, uma garrafa, o brinde de 15 anos. O dia inteiro é a celebração.</div></div>
+          </div>
+        </div>
+        <div class="aside">
+          <h4>Dormir · faixas estimadas</h4>
+          <ul>
+            <li><span class="pick">Hotel/B&amp;B em Levanto</span> (perto da estação) <span class="price">~€120–160/n</span></li>
+            <li>Agriturismo nas colinas de Levanto <span class="price">~€110–140/n</span></li>
+          </ul>
+          <h4>Mesa</h4>
+          <ul>
+            <li>Acciughe de Monterosso, pesto na origem, focaccia</li>
+            <li>Vermentino gelado pós-trilha; Sciacchetrà na sobremesa</li>
+          </ul>
+          <h4>Reservar</h4>
+          <ul>
+            <li><strong>Base 5 noites com sexta no meio</strong> — Levanto esgota o outono</li>
+            <li>Cinque Terre Card (trilha+trem) na chegada; kayak com 1 semana</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ BLOCO 4 · EMÍLIA ============ -->
+    <div class="bloco">
+      <div class="head"><span class="tag b-emi">Ato IV</span><h3>Modena / Parma — a mesa na fonte</h3><span class="dates">sáb 10 → seg 12/10 · carro</span><span class="hospchip">Modena 2n</span></div>
+      <div class="fotoband">
+        <figure><img src="https://lh3.googleusercontent.com/place-photos/AG9NLjDcJOfF5YQNXSGJHlmoPIBm5UgyHTzTzk2YSIAQf1Yy7sU6CGcC2RLICng_mn7NSSa8WGgquVfxUz34cK5n1-tdPx0_Nfo7W8Sbv85l5JVWZIcyMs0PaOsJSImlk2dkcmTLCdkdASZ3tIfSLQ=s4800-w800-h600" alt="Modena — a Piazza Grande" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
+        <figure><img src="https://lh3.googleusercontent.com/place-photos/AG9NLjD9CTkSiKRVE_tPqo65yoVV2AmCodm-4IpzXptky7yf2kq6Dy8wnN5l675ataicltnkzKX_39vTu4hzv1RyEEtdiX3Y_lIVylbxMK_yPQqwCa5k58VWgSUod7i1Hp0vrpUqPgq3zoskaZaWLEM=s4800-w800-h600" alt="Modena histórica" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
+        <figure><img src="https://lh3.googleusercontent.com/place-photos/AG9NLjD3fu75TzsA2sDqQ1cT8oraktPK5_Uu9drG9NnB_lRhxgKYjOfEMhJkJgkqRCmcE1IY2erHa6Sd2HMakc1CrQX328TgUls7GdK8RjEmoATE1u4IYTdtC8uP2nxEVpyiMQRNK2WMbjCKMQp1s28=s4800-w800-h600" alt="Ruas de Modena" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
+      </div>
+      <figure><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZMFpNJPRdStIgmltK6Xo8Brj30PEZXqIiDCkwhENcO72mHzlJvnqpC4HvpKalhFaWBWeDWg1FXxRt8pPGJaoyogIuk-Zy0yEf2s10e8S87m7uqv32vVO0WSk-hHqnGQLAgClVi1S13YB6hyb34=s4800-w800-h600" alt="Parma — o conjunto do Duomo e Battistero" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
+        <figure><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZOsAMcw3kdyGbcAQldF8k2iAcsGmqNpdRbmT-3q4UAJ4kihhA8zi7HF7R6PW8z4Bne5OSQOuZdLWZwX9jdjvtvlHCMy7l5-8sOzzM7PS0fAXhJK02Jvhbf75njAx8DtFyv6jz8et7Oy9aXOMFE=s4800-w800-h576" alt="O Battistero rosa de Parma" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
+        <figure><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZOUb4tlkrpXPf6zpyI1PTRq-KmrVL1-kNC0WPlu1ZVNzhC05HdC2L75ipzhD-s-0YaPaBxs9VztZysNTwQURZ1p412rBohziXvjUP9wI9O9pS1KD5afvzTF8uw-Hc1BsACddIA3g4pC4LJeDA=s4800-w800-h600" alt="Parma histórica" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
+        <div class="fotocred">Fotos: Roberta Marassi, Mel Rossini, Salvatore Patacca, Alby Set, Vincent, Ferdinand Cunha · contribuidores do Google Maps</div>
+      <div class="body">
+        <div class="col">
+          <p>O Food Valley não é marketing — é uma geografia de 100 km onde nasceram o parmigiano-reggiano, o balsâmico tradicional, o prosciutto di Parma e o lambrusco de verdade. Depois de dez dias de esforço físico, este bloco troca o desnível por profundidade de mesa: <strong>ver as coisas serem feitas onde são feitas</strong>.</p>
+          <div class="dias">
+            <div class="dia"><span class="dn">D12 · sáb 10/10</span><div>Estrada Levanto→Modena pelo passo da Cisa (2h30). Tarde: o Duomo românico (UNESCO), a Piazza Grande, aperitivo com lambrusco di Sorbara — esqueça o lambrusco de exportação. Jantar de tortellini in brodo e zampone.</div></div>
+            <div class="dia"><span class="dn">D13 · dom 11/10</span><div><strong>O dia das origens</strong>: caseificio de parmigiano na madrugada (~8h — a coalhada não espera; agendar) com degustação de 24/36/48 meses; <strong>acetaia tradicional</strong> à tarde (as baterias de barris no sótão, o balsâmico DOP de 25 anos que não tem nada a ver com o de mercado). Fecho: aperitivo na Piazza Grande.</div></div>
+          </div>
+        </div>
+        <div class="aside">
+          <h4>Dormir · faixas estimadas</h4>
+          <ul>
+            <li><span class="pick">Hotel no centro de Modena</span> <span class="price">~€100–140/n</span></li>
+            <li>Agriturismo com acetaia própria <span class="price">~€110–150/n</span></li>
+          </ul>
+          <h4>Mesa</h4>
+          <ul>
+            <li>Tortellini in brodo, zampone, gnocco fritto + salumi</li>
+            <li>Lambrusco di Sorbara e Grasparossa — na fonte</li>
+            <li>Osteria Francescana existe na cidade — fora do orçamento por decisão de vocês; a Franceschetta 58 é a porta lateral acessível</li>
+          </ul>
+          <h4>Reservar</h4>
+          <ul>
+            <li>Caseificio (visita da manhã) e acetaia — agendar em agosto</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ BLOCO 5 · BOLOGNA ============ -->
+    <div class="bloco">
+      <div class="head"><span class="tag b-bo">Ato V</span><h3>Bologna — la Grassa, a despedida</h3><span class="dates">seg 12 → qua 14/10 · sem carro · voo 17h45</span><span class="hospchip">Bologna 2n</span></div>
+      <div class="fotoband">
+        <figure><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZMU5kO2mUE9lkyp-_AK65RpBVZrznkyHvxnj5szQy2c4yZvlDDjVbFj8rHqcZl0PBmZ2vltn1UwXMBFAzXHvJgXRqv2-JvR9c-32A1RZ2dUNIjCy1tCrdXG3wv8F2TeLCsFWy6bC4gi75sS4B8=s4800-w800-h600" alt="Bologna — as torres e os telhados" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
+        <figure><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZMoBG2asuGXOhcl_HlbPeE7IpzUS95RXQrj_tG9YKD5kyuJ4kbmWlZOfmSDXaLH-GFWeIaLSTztD5Z42XwP7FhC4eqyTmcqEFN3MwzVHHxptQvzoAQNakFdJ2sSDkfn0vbFYKbM4jVO6g56-v4=s4800-w800-h600" alt="Os pórticos de Bologna" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
+        <figure><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZOFf5ep2fk_oAG0BTRz0PWJ7Bg1eaqyMBl_wpVXlhf3A_B2pGmeKyyiWRSL5qpTVuAFS4nVL7ucBBSaNNWPgkNqPnze3madW_R4MK6QiLXGxYWnmzc9klmcV-tffkoLo4mXyOs3rDDZYMlbsno=s4800-w800-h600" alt="Bologna ao entardecer" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
+      </div>
+      <figure><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZOCLF4YjBoU3dNPF4qXb12Yc2BDt_DrLtzSGWpJuh-aZO3_BKIO-yjIDPbBsz7DnK-Ng6Cgl89W5DNf_XFzrIcE1D_mWo97JDj9yw9pcD2er2Sz0LAuBwHVXVTOtQkNydKkuLFphaS2bq8hs2Y=s4800-w800-h600" alt="Bologna — Piazza Maggiore" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
+        <figure><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZPiGGt20X_Y34PqgA24JxTBfzAzhlMbezTT7D2x5AtkkbXczOe1H_KW4fOgntlA9TssX8EDfvFoNGUJwg3XMlbiTtcs7OE7mMplL_aKPoqJESNx8ZTMqfs2dDQqs3jagU4G-sg6-3JlSk99FA=s4800-w800-h600" alt="Os telhados de Bologna do alto" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
+        <div class="fotocred">Fotos: Giulia Fioretti, Luigi Albino, Bar Cel, GoToExplore, Enrico Borlin · contribuidores do Google Maps</div>
+      <div class="body">
+        <div class="col">
+          <p>O carro morre no aeroporto na entrada da cidade e os dois últimos dias são a pé, sob os 40 km de pórticos (UNESCO). Bologna é <em>la Grassa</em> — a gorda — e o apelido é um programa de governo. A saída às 17h45 compra o que nenhuma das outras emissões dava: <strong>a última manhã inteira</strong>.</p>
+          <div class="dias">
+            <div class="dia"><span class="dn">D14 · seg 12/10</span><div>Manhã final em <strong>Parma</strong> no caminho (45 min): Battistero, um culatello no balcão. Chegada a Bologna ~16h, <strong>devolução do carro no BLQ</strong> e Marconi Express ao centro. Noite: primeira imersão no Quadrilatero, tagliatelle al ragù na fonte.</div></div>
+            <div class="dia"><span class="dn">D15 · ter 13/10</span><div>Bologna inteira: mercado do <strong>Quadrilatero</strong> cedo, San Petronio, Santo Stefano (as sete igrejas), a Torre Asinelli <em>se reaberta</em> (498 degraus — a última ferrata é de escada), aula-espetáculo das sfogline. Opcional que não recomendo, mas existe: Florença a 35 min de Frecciarossa. Jantar de despedida em osteria histórica.</div></div>
+            <div class="dia"><span class="dn">D16 · qua 14/10</span><div>Última manhã inteira: Mercato delle Erbe, compras de mala (parmigiano embalado a vácuo, balsâmico, um Sorbara), <strong>último tortellini in brodo às 12h30</strong>. Aeroporto 15h pelo Marconi Express (7 min), decolagem <strong>17h45</strong>.</div></div>
+          </div>
+        </div>
+        <div class="aside">
+          <h4>Dormir · faixas estimadas</h4>
+          <ul>
+            <li><span class="pick">Hotel no Quadrilatero/centro</span> <span class="price">~€130–170/n</span></li>
+            <li>B&amp;B sob os pórticos <span class="price">~€110–140/n</span></li>
+            <li>Guarda-malas no dia 14: checkout 11h, cidade até 14h30</li>
+          </ul>
+          <h4>Mesa</h4>
+          <ul>
+            <li>Tagliatelle al ragù, tortellini in brodo, mortadella de balcão</li>
+            <li>Regra de ouro: nada de "spaghetti à bolonhesa" — isso não existe aqui</li>
+          </ul>
+          <h4>Reservar</h4>
+          <ul>
+            <li>Osteria da noite de despedida (as históricas lotam)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HOSPEDAGEM ================= -->
+<section id="hospedagem" style="padding-top:0">
+  <div class="wrap">
+    <div class="eyebrow">Pontos de hospedagem</div>
+    <h2>Cinco camas, quinze noites</h2>
+    <p class="lede">O consolidado das bases, na <strong>ordem de prioridade de reserva</strong> — que segue escassez, não cronologia. Os dois primeiros itens fecham em julho; cada troca de base está marcada no dia a dia com a etiqueta correspondente. São apenas <strong>4 trocas de base</strong> em 15 noites — a malha mais estável de todas as versões.</p>
+    <div class="tblwrap" style="margin-top:26px">
+      <table>
+        <thead><tr><th class="mono">Prio</th><th>Base</th><th class="mono">Noites · datas</th><th>O que importa na escolha</th><th class="mono">Faixa/noite</th></tr></thead>
+        <tbody>
+          <tr><td class="mono"><span class="hosp-prio">1</span></td><td><strong>Ortisei</strong> (Val Gardena)</td><td class="mono">3n · 29/09→02/10</td><td>Estacionamento (centro pedestre), spa para os dias de montanha, posição a pé das estações do Seceda. O vale esgota o outono cedo — reserva mais urgente da viagem.</td><td class="mono">€110–150 / €170–210</td></tr>
+          <tr><td class="mono"><span class="hosp-prio">2</span></td><td><strong>Levanto</strong> (Cinque Terre)</td><td class="mono">5n · 05→10/10</td><td>Inclui a <strong>noite das bodas (sex 09/10)</strong>. Critérios: ≤10 min a pé da estação (o trem é o modal da semana), estacionamento para o carro dormir 5 dias, café da manhã cedo para dias de trilha. Outubro ainda é temporada — 5 noites com fim de semana esgotam.</td><td class="mono">€110–140 / €120–160</td></tr>
+          <tr><td class="mono"><span class="hosp-prio">3</span></td><td><strong>Riva del Garda / Arco</strong></td><td class="mono">3n · 02→05/10</td><td>Centro de Riva a pé de tudo, ou agriturismo entre oliveiras em Arco — para tandem e canyoning tanto faz (raio de 10 min).</td><td class="mono">€110–160</td></tr>
+          <tr><td class="mono"><span class="hosp-prio">4</span></td><td><strong>Bologna</strong></td><td class="mono">2n · 12→14/10</td><td>Centro/Quadrilatero, a pé da Marconi Express. Inegociável: <strong>guarda-malas no dia 14</strong> (checkout 11h, voo 17h45). ZTL brava: por isso o carro morre no aeroporto antes de entrar.</td><td class="mono">€110–170</td></tr>
+          <tr><td class="mono"><span class="hosp-prio">5</span></td><td><strong>Modena</strong></td><td class="mono">2n · 10→12/10</td><td>Centro histórico ou agriturismo com acetaia própria — dormir sobre os barris é coerente com o bloco. Oferta ampla, urgência baixa.</td><td class="mono">€100–150</td></tr>
+          <tr class="total"><td class="mono">Σ</td><td>5 bases · 15 noites</td><td class="mono">29/09→14/10</td><td>Trocas de base: 4 (D4, D7, D12 e D14 — todas marcadas no runbook). Zero noite técnica, zero buffer morto: as pontas de meio-dia e 17h45 dispensam.</td><td class="mono">€1.730 / €2.195 / €2.900</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small muted" style="margin-top:14px">As três colunas do total correspondem às configurações enxuta / padrão / recomendada do orçamento. Check-in padrão 15h já absorvido pela ordem dos dias.</p>
+  </div>
+</section>
+
+<!-- ================= DIA A DIA OPERACIONAL ================= -->
+<section id="diaadia" style="padding-top:0">
+  <div class="wrap">
+    <div class="eyebrow">Dia a dia operacional</div>
+    <h2>Os 16 dias, hora a hora</h2>
+    <p class="lede">O runbook da viagem: horários, estradas, especificações de trilha, mesa e plano B de cada dia. Horários de teleférico, operador e visita são alvos a confirmar na reserva — a estrutura não muda, os minutos podem.</p>
+
+    <div class="dgroup">Ato I · Dolomitas</div>
+
+    <div class="dcard">
+      <div class="dhead"><span class="dnum">D1</span><span class="dtitle">Chegada e subida direta ao vale</span><span class="dmeta">ter 29/09 · BLQ → Ortisei · 3h<span class="troca">check-in Ortisei</span></span></div>
+      <ul class="tl">
+        <li><span class="h">11:10</span><div>Pouso em Bologna. Imigração + malas (~45 min; BLQ é pequeno e rápido).</div></li>
+        <li><span class="h">12:15</span><div>Retirada do carro no terminal (pré-pago, tanque cheio-cheio). Água e café antes da estrada.</div></li>
+        <li><span class="h">12:30</span><div>Partida: A1 até Modena Nord (30 min) → <strong>A22 do Brennero</strong> ao norte (Verona, Trento, Bolzano — 2h) → saída Chiusa/Klausen → SS242, os 17 km que sobem 600 m até Ortisei. Pedágios ~€22.</div></li>
+        <li><span class="h">15:45</span><div>Chegada com luz. Check-in, passeggiata, mercado (água, barras de trilha).</div></li>
+        <li><span class="h">18:00</span><div>Briefing por telefone com o guia: rota da ferrata do D3 definida pelo meteo.</div></li>
+        <li><span class="h">19:00</span><div>Jantar cedo de stube: canederli, speck, um Lagrein. O corpo estará às 14h de Brasília — comer leve, cama 21h30.</div></li>
+      </ul>
+      <div class="specs"><span>~300 km</span><span>3h de estrada</span><span>chegada com 3h de luz</span></div>
+      <div class="planb">pouso com atraso que empurre a partida para depois das 16h → jantar em Bolzano e subida final no escuro (SS242 é boa estrada) — ou pernoite em Bolzano se o atraso for grave; o D2 absorve.</div>
+    </div>
+
+    <div class="dcard">
+      <div class="dhead"><span class="dnum">D2</span><span class="dtitle">Seceda — a crista</span><span class="dmeta">qua 30/09 · Ortisei · trilha T1–T2</span></div>
+      <ul class="tl">
+        <li><span class="h">08:00</span><div>Café reforçado.</div></li>
+        <li><span class="h">08:45</span><div>Teleférico Ortisei→Furnes→Seceda (~€40–45/p).</div></li>
+        <li><span class="h">09:30</span><div>Crista do Seceda (2.500 m): a lâmina das Fermeda — a foto da viagem, com luz de manhã.</div></li>
+        <li><span class="h">10:00</span><div>Trilha: Seceda → Forcella Pana → malgas do Cisles → Rifugio Troier (almoço 12h30: canederli em brodo).</div></li>
+        <li><span class="h">14:00</span><div>Descida por Col Raiser a S. Cristina; ônibus 350/352 ou táxi de volta (10–15 min).</div></li>
+        <li><span class="h">16:30</span><div>Spa do hotel. 19h30: jantar; confirmação final com o guia.</div></li>
+      </ul>
+      <div class="specs"><span>~9 km</span><span>+250 m / −650 m</span><span>4h</span><span>T1–T2 · sem exposição</span></div>
+      <div class="planb">teto baixo no Seceda → inverter com o D3 se o guia preferir a quarta (a permuta é a folga de tempo deste bloco); com nuvem média, a Vallunga plana em Selva salva o dia.</div>
+    </div>
+
+    <div class="dcard">
+      <div class="dhead"><span class="dnum">D3</span><span class="dtitle">Via ferrata guiada — o dia central</span><span class="dmeta">qui 01/10 · guia UIAGM · dia inteiro</span></div>
+      <ul class="tl">
+        <li><span class="h">07:30</span><div>Café. Mochila: 2L de água, camadas, luvas finas, gorro, barras. Kit de ferrata, cadeirinha e capacete: o guia fornece.</div></li>
+        <li><span class="h">08:15</span><div>Encontro no escritório dos guias de Ortisei (Catores); deslocamento conforme a rota.</div></li>
+        <li><span class="h">09:00</span><div><strong>Rotas candidatas</strong> (decisão do guia na véspera): <em>Piz da Cir V</em> (Passo Gardena, clássica curta, 3–4h, panorama do Sella); <em>Brigata Tridentina</em> (a célebre, com a ponte suspensa no final, ~4h); <em>Sass Rigais</em> (3.025 m, Odle — dia cheio, 6–7h, +1.000 m, a cimeira do grupo visto ontem do Seceda).</div></li>
+        <li><span class="h">16:30</span><div>Retorno ao vale. Weissbier de recompensa; malas pré-fechadas — amanhã desce ao lago.</div></li>
+        <li><span class="h">19:00</span><div>Jantar cedo. Pernas para cima.</div></li>
+      </ul>
+      <div class="specs"><span>guia privado ~€380–420/casal</span><span>equipamento incluso</span><span>permuta D2↔D3 = folga</span></div>
+      <div class="planb">frente fria/rocha molhada sem permuta possível → a cota vertical desce ao Garda (Colodri no D5, Cima SAT possível no D6) e o dia vira Alpe di Siusi com nuvem alta ou Bolzano + Ötzi. A 4ª noite não existe nesta versão — o hedge é geográfico, não temporal.</div>
+    </div>
+
+    <div class="dgroup">Ato II · Lago di Garda</div>
+
+    <div class="dcard">
+      <div class="dhead"><span class="dnum">D4</span><span class="dtitle">Descida ao lago</span><span class="dmeta">sex 02/10 · Ortisei → Riva · 1h55<span class="troca">troca: Ortisei → Riva</span></span></div>
+      <ul class="tl">
+        <li><span class="h">09:00</span><div>Partida: SS242 → A22 sul → saída Rovereto Sud → SS240 até Riva.</div></li>
+        <li><span class="h">11:00</span><div>Chegada; malas no hotel, estacionamento indicado.</div></li>
+        <li><span class="h">12:30</span><div>Almoço na Piazza III Novembre, de frente para a água.</div></li>
+        <li><span class="h">14:30</span><div>Subida ao <strong>Bastione</strong> (trilha 20 min ou elevador panorâmico): o lago inteiro na primeira moldura.</div></li>
+        <li><span class="h">17:00</span><div>Orla até Punta Lido; aperitivo com carne salada e um Trento DOC.</div></li>
+        <li><span class="h">20:00</span><div>Jantar: trota do lago. Confirmar canyoning (amanhã) e tandem (domingo) com os operadores.</div></li>
+      </ul>
+      <div class="planb">nenhum necessário — dia de logística leve por desenho.</div>
+    </div>
+
+    <div class="dcard">
+      <div class="dhead"><span class="dnum">D5</span><span class="dtitle">Canyoning + Arco</span><span class="dmeta">sáb 03/10 · Rio Palvico</span></div>
+      <ul class="tl">
+        <li><span class="h">08:45</span><div>Encontro com o operador (base Arco/Torbole). Neoprene, capacete e cadeirinha fornecidos.</div></li>
+        <li><span class="h">09:30</span><div><strong>Rio Palvico</strong> (ou Vione): ~3h na água — rapéis, toboáguas naturais, saltos opcionais. Água fria: parte da graça.</div></li>
+        <li><span class="h">13:30</span><div>Almoço leve em Arco.</div></li>
+        <li><span class="h">15:00</span><div><strong>Arco</strong>: o castelo na agulha de rocha (30 min de subida), o burgo dos escaladores, gelato na praça.</div></li>
+        <li><span class="h">19:30</span><div>Jantar em Arco ou Riva.</div></li>
+      </ul>
+      <div class="specs"><span>canyoning ~€80–90/p</span><span>reserva de tandem: amanhã</span></div>
+      <div class="planb">operador cancela por chuva forte → inverter com o programa do D6 (tandem sábado se o vento permitir) ou ferrata Colodri + Busatte–Tempesta.</div>
+    </div>
+
+    <div class="dcard">
+      <div class="dhead"><span class="dnum">D6</span><span class="dtitle">O voo sobre o Garda</span><span class="dmeta">dom 04/10 · tandem no Monte Baldo</span></div>
+      <ul class="tl">
+        <li><span class="h">08:30</span><div>Carro a Malcesine pela Gardesana Orientale (25–35 min, túneis sobre a água).</div></li>
+        <li><span class="h">09:30</span><div>Teleférico rotatório do Monte Baldo (~1.750 m).</div></li>
+        <li><span class="h">10:30</span><div><strong>Decolagem tandem</strong>: 20–30 min com os 50 km do lago abrindo embaixo, pouso na beira da água. ~€130–150/p com vídeo.</div></li>
+        <li><span class="h">12:30</span><div>Almoço em Malcesine; castelo scaligero em 40 min.</div></li>
+        <li><span class="h">15:30</span><div>Volta a Riva. Tarde à escolha das pernas: <strong>ferrata Colodri</strong> (fácil, 1h30, autoguiada) ou nada — amanhã tem 3h45 de estrada.</div></li>
+        <li><span class="h">19:30</span><div>Último jantar trentino; abastecer o carro.</div></li>
+      </ul>
+      <div class="specs"><span>voo ~€130–150/p</span><span>remarcável por vento (D5 era a reserva)</span></div>
+      <div class="planb">vento errado nos dois dias → reembolso e a caminhada Busatte–Tempesta (passarelas de metal sobre o lago, 4 km) como consolação honesta.</div>
+    </div>
+
+    <div class="dgroup">Ato III · Cinque Terre — a semana das bodas</div>
+
+    <div class="dcard">
+      <div class="dhead"><span class="dnum">D7</span><span class="dtitle">A travessia ao mar</span><span class="dmeta">seg 05/10 · Riva → Levanto · ~3h45<span class="troca">troca: Riva → Levanto</span></span></div>
+      <ul class="tl">
+        <li><span class="h">08:30</span><div>Partida — a perna mais longa da viagem: SS45bis a Brescia (1h30, pela margem oeste do lago) → A21 Cremona/Piacenza → A1 → <strong>A15 do passo da Cisa</strong> → Levanto.</div></li>
+        <li><span class="h">11:00</span><div>Parada de almoço cedo em <strong>Cremona</strong> (torrone, o Duomo) — ou empurrar até Parma se as pernas aguentarem.</div></li>
+        <li><span class="h">13:30</span><div>Chegada a Levanto; malas, carro no estacionamento — <strong>ele dorme 5 dias</strong>.</div></li>
+        <li><span class="h">15:00</span><div>Trem de 4 min a <strong>Monterosso</strong>: primeiro contato com as vilas, primeiro mergulho (~21 °C), focaccia de esquina.</div></li>
+        <li><span class="h">19:30</span><div>Jantar em Levanto: gattafin e um Vermentino. Comprar a <strong>Cinque Terre Card</strong> (trilha + trem) para a semana.</div></li>
+      </ul>
+      <div class="specs"><span>~340 km</span><span>3h45 em 3 segmentos</span><span>mar: ~21 °C</span></div>
+      <div class="planb">trânsito ou cansaço → cortar a parada de Cremona e almoçar em Levanto às 13h; nada do dia é crítico.</div>
+    </div>
+
+    <div class="dcard">
+      <div class="dhead"><span class="dnum">D8</span><span class="dtitle">Sentiero Azzurro — as falésias clássicas</span><span class="dmeta">ter 06/10 · Monterosso → Corniglia</span></div>
+      <ul class="tl">
+        <li><span class="h">08:00</span><div>Trem a Monterosso; na trilha às 8h30 — <strong>antes das excursões</strong>, que chegam às 10h.</div></li>
+        <li><span class="h">08:30</span><div><strong>Monterosso→Vernazza</strong> (2h, degraus sérios, a chegada com Vernazza abrindo lá embaixo é o momento da costa).</div></li>
+        <li><span class="h">11:00</span><div>Vernazza: porto, um limone granita, subir ao Castello Doria.</div></li>
+        <li><span class="h">12:30</span><div><strong>Vernazza→Corniglia</strong> (1h45, mais selvagem). Almoço tardio em Corniglia, a vila sem porto no alto da falésia.</div></li>
+        <li><span class="h">16:00</span><div>Trem de volta; fim de tarde na praia de Levanto.</div></li>
+        <li><span class="h">20:00</span><div>Jantar: acciughe de Monterosso em três preparos.</div></li>
+      </ul>
+      <div class="specs"><span>~7 km</span><span>+550 m acumulados</span><span>4h de trilha</span><span>Cinque Terre Card</span></div>
+      <div class="planb">trecho fechado por chuva recente (acontece) → o par Manarola–Riomaggiore pelos vinhedos altos, ou inverter com o D9 (kayak).</div>
+    </div>
+
+    <div class="dcard">
+      <div class="dhead"><span class="dnum">D9</span><span class="dtitle">O mar por dentro — kayak e praia</span><span class="dmeta">qua 07/10 · costa de Monterosso</span></div>
+      <ul class="tl">
+        <li><span class="h">09:00</span><div><strong>Kayak guiado</strong> pela costa (meia jornada): grutas, enseadas sem acesso por terra, as vilas vistas do mar — o ângulo que os trens não dão.</div></li>
+        <li><span class="h">13:00</span><div>Almoço no porto de Vernazza ou Monterosso.</div></li>
+        <li><span class="h">15:00</span><div>Tarde de praia em Levanto (a maior faixa de areia da região — os surfistas locais que o digam) ou sesta honesta.</div></li>
+        <li><span class="h">18:30</span><div>Aperitivo no lungomare; jantar de trofie al pesto — o pesto na região que o inventou.</div></li>
+      </ul>
+      <div class="specs"><span>kayak ~€45–60/p</span><span>mar ~21 °C</span></div>
+      <div class="planb">mar mexido → barco regular a Portovenere (rota panorâmica) ou dia de vilas do sul (Manarola, Riomaggiore) de trem.</div>
+    </div>
+
+    <div class="dcard">
+      <div class="dhead"><span class="dnum">D10</span><span class="dtitle">Dia leve — Punta Mesco ou vinhedos</span><span class="dmeta">qui 08/10 · recuperação ativa</span></div>
+      <ul class="tl">
+        <li><span class="h">09:30</span><div>À escolha: <strong>Punta Mesco</strong> (Levanto→Monterosso pela costa, 2h30, o promontório com as cinco vilas enfileiradas ao sul) — ou Manarola/Riomaggiore de trem, com o anel dos <strong>vinhedos heroicos</strong> em socalcos.</div></li>
+        <li><span class="h">13:00</span><div>Almoço longo; à tarde, nada com hora marcada — amanhã é o dia grande.</div></li>
+        <li><span class="h">17:00</span><div>Uma taça de <strong>Sciacchetrà</strong> (o passito raro dos socalcos) num wine bar de Manarola ou Levanto — a Ligúria também engarrafa vertical.</div></li>
+        <li><span class="h">19:30</span><div>Jantar cedo; separar roupa e mochila das bodas.</div></li>
+      </ul>
+      <div class="planb">é o dia-colchão do bloco: qualquer programa perdido dos D8–D9 cai aqui.</div>
+    </div>
+
+    <div class="dcard">
+      <div class="dhead"><span class="dnum">D11</span><span class="dtitle">As bodas — a rota alta e Portovenere</span><span class="dmeta">sex 09/10 · 15 anos sobre o Tirreno</span></div>
+      <ul class="tl">
+        <li><span class="h">08:00</span><div>Trem a Riomaggiore.</div></li>
+        <li><span class="h">08:45</span><div><strong>A rota alta Riomaggiore→Portovenere</strong> (~12 km, ~5h, +700 m): o balcão contínuo mais espetacular da costa, quase vazio, com o Tirreno 300 m abaixo e as ilhas de Palmaria e Tino no horizonte. Versão suave, se as pernas ou o dia pedirem: Manarola de manhã + barco a Portovenere.</div></li>
+        <li><span class="h">14:30</span><div>Chegada a <strong>Portovenere</strong>: almoço tardio no porto, sem relógio.</div></li>
+        <li><span class="h">17:30</span><div><strong>San Pietro na ponta da falésia</strong> — a igreja gótica listrada sobre o mar — para o pôr do sol (~18h35). É a foto dos 15 anos.</div></li>
+        <li><span class="h">19:00</span><div>Barco ou ônibus a La Spezia + trem a Levanto (ou táxi). Jantar: uma garrafa de guarda, o brinde. O dia inteiro foi a celebração.</div></li>
+      </ul>
+      <div class="specs"><span>~12 km · +700 m · 5h</span><span>tênis de trilha, 2,5L de água</span><span>versão suave disponível</span></div>
+      <div class="planb">chuva → Portovenere direto de barco/trem, almoço longo, San Pietro entre nuvens (dramático do mesmo jeito) e o brinde antecipado. A data não se move; o formato, sim.</div>
+    </div>
+
+    <div class="dgroup">Ato IV · Emília</div>
+
+    <div class="dcard">
+      <div class="dhead"><span class="dnum">D12</span><span class="dtitle">O passo da Cisa e Modena</span><span class="dmeta">sáb 10/10 · Levanto → Modena · 2h30<span class="troca">troca: Levanto → Modena</span></span></div>
+      <ul class="tl">
+        <li><span class="h">09:30</span><div>Partida: A15 pelo <strong>passo da Cisa</strong> (a autostrada cênica que fura os Apeninos) → A1 → Modena. O carro acorda depois de 5 dias.</div></li>
+        <li><span class="h">12:15</span><div>Chegada; almoço de gnocco fritto + salumi.</div></li>
+        <li><span class="h">14:30</span><div>Modena a pé: o <strong>Duomo românico</strong> (UNESCO), a Ghirlandina, a Piazza Grande.</div></li>
+        <li><span class="h">18:00</span><div>Aperitivo com <strong>lambrusco di Sorbara</strong> — seco, salino, nada a ver com o de exportação.</div></li>
+        <li><span class="h">20:00</span><div>Jantar: tortellini in brodo como rito laico.</div></li>
+      </ul>
+      <div class="specs"><span>~215 km</span><span>2h30</span></div>
+      <div class="planb">nenhum — dia urbano à prova de tempo.</div>
+    </div>
+
+    <div class="dcard">
+      <div class="dhead"><span class="dnum">D13</span><span class="dtitle">O dia das origens — parmigiano e balsâmico</span><span class="dmeta">dom 11/10 · Modena e arredores</span></div>
+      <ul class="tl">
+        <li><span class="h">07:45</span><div><strong>Caseificio de parmigiano-reggiano</strong> (agendado): a coalhada não espera — ver as rodas nascerem, o armazém-catedral com milhares delas, degustação 24/36/48 meses. Compra embalada a vácuo para a mala.</div></li>
+        <li><span class="h">11:00</span><div>Volta por <strong>Nonantola</strong> ou campo modenês; almoço de trattoria de província (os melhores tortellini raramente são os do centro).</div></li>
+        <li><span class="h">15:00</span><div><strong>Acetaia tradicional</strong> (agendada): as baterias de barris no sótão, o balsâmico DOP extravecchio de 25 anos — colher de degustação que recalibra a palavra "balsâmico" para sempre.</div></li>
+        <li><span class="h">18:30</span><div>Passeggiata final em Modena; jantar leve (o dia foi calórico por desenho).</div></li>
+      </ul>
+      <div class="specs"><span>caseificio ~€10–15/p</span><span>acetaia ~€20–30/p</span><span>agendar em agosto</span></div>
+      <div class="planb">domingo sem vaga no caseificio → segunda de manhã cedo no caminho de Bologna (D14 absorve) e o domingo inverte com Parma.</div>
+    </div>
+
+    <div class="dgroup">Ato V · Bologna</div>
+
+    <div class="dcard">
+      <div class="dhead"><span class="dnum">D14</span><span class="dtitle">Parma no caminho, o carro morre</span><span class="dmeta">seg 12/10 · Modena → Parma → BLQ → Bologna<span class="troca">troca: Modena → Bologna</span></span></div>
+      <ul class="tl">
+        <li><span class="h">09:00</span><div>Estrada a <strong>Parma</strong> (45 min): o Battistero rosa de Antelami, o Duomo com a cúpula do Correggio.</div></li>
+        <li><span class="h">12:30</span><div>Almoço parmense: tortelli d'erbetta, culatello no balcão — o primo raro do prosciutto.</div></li>
+        <li><span class="h">14:30</span><div>Estrada a Bologna (1h); <strong>devolução do carro no BLQ</strong> (~15h45, fim dos 13 dias, ~1.100 km) — o carro nunca vê a ZTL bolonhesa.</div></li>
+        <li><span class="h">16:15</span><div><strong>Marconi Express</strong> (monotrilho, 7 min) ao centro; check-in.</div></li>
+        <li><span class="h">18:00</span><div>Primeira imersão no <strong>Quadrilatero</strong>: mortadella de balcão, um lambrusco em pé.</div></li>
+        <li><span class="h">20:30</span><div>Jantar: tagliatelle al ragù na fonte.</div></li>
+      </ul>
+      <div class="planb">se o caseificio migrou do D13 para hoje cedo → Parma comprime para almoço + Battistero e nada se perde.</div>
+    </div>
+
+    <div class="dcard">
+      <div class="dhead"><span class="dnum">D15</span><span class="dtitle">Bologna inteira</span><span class="dmeta">ter 13/10 · a Grassa, a Dotta, a Rossa</span></div>
+      <ul class="tl">
+        <li><span class="h">08:30</span><div><strong>Quadrilatero</strong> no abrir das bancas — o mercado medieval em pleno funcionamento é o espetáculo.</div></li>
+        <li><span class="h">10:00</span><div>San Petronio (a fachada inacabada, o relógio solar no piso), Piazza Maggiore, e a <strong>Torre Asinelli se reaberta</strong> — 498 degraus: a última ferrata é de escada. Alternativa garantida: o terraço de San Petronio.</div></li>
+        <li><span class="h">12:30</span><div>Almoço; à tarde, <strong>Santo Stefano</strong> (o complexo das sete igrejas) e os pórticos até San Luca se as pernas pedirem os 666 arcos.</div></li>
+        <li><span class="h">17:00</span><div>Aula-espetáculo das <strong>sfogline</strong> (a massa aberta no mattarello) ou enoteca histórica.</div></li>
+        <li><span class="h">20:00</span><div><strong>Jantar de despedida</strong> em osteria histórica (reservada em setembro).</div></li>
+      </ul>
+      <div class="planb">o bate-volta a Florença (35 min de Frecciarossa) existe e não é recomendado: trocaria a despedida bolonhesa por uma amostra apressada — a decisão de vocês foi ícones inteiros ou nada.</div>
+    </div>
+
+    <div class="dcard">
+      <div class="dhead"><span class="dnum">D16</span><span class="dtitle">A última manhã inteira + voo 17h45</span><span class="dmeta">qua 14/10 · Bologna → BLQ<span class="troca">check-out 11h</span></span></div>
+      <ul class="tl">
+        <li><span class="h">08:30</span><div><strong>Mercato delle Erbe</strong>: café, última volta sob os pórticos.</div></li>
+        <li><span class="h">10:30</span><div>Compras de mala: parmigiano a vácuo, balsâmico DOP, um Sorbara, torrone de Cremona se sobrou espaço.</div></li>
+        <li><span class="h">11:00</span><div>Check-out; malas no guarda-malas. A cidade continua.</div></li>
+        <li><span class="h">12:30</span><div><strong>Último tortellini in brodo</strong>, sem relógio — a despedida que nenhuma das outras emissões permitia.</div></li>
+        <li><span class="h">14:30</span><div>Malas; <strong>Marconi Express 15h00</strong> (7 min) — no terminal 15h15, com 2h30 de folga.</div></li>
+        <li><span class="h">17:45</span><div>Decolagem. Na mala: um Lagrein, um Vermentino, um Sciacchetrà, um Sorbara, parmigiano de 36 meses e um balsâmico de 25 anos — e quinze anos brindados num laço de 1.100 km.</div></li>
+      </ul>
+      <div class="planb">a folga é o plano B: entre o almoço e o embarque há mais de 3h de margem. Regra única: Marconi Express às 15h, sem exceção.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ASSINATURAS ================= -->
+<section class="assin" id="assinaturas">
+  <div class="wrap">
+    <div class="eyebrow" style="color:var(--tufo)">As três assinaturas</div>
+    <h2>O que esta viagem terá que nenhuma outra teve</h2>
+    <div class="grid3">
+      <div class="card"><div class="num">I</div><h3>A ferrata no berço dela</h3><p>Um dia inteiro de via ferrata com guia nas paredes onde a modalidade nasceu — Odle, Sella, Piz da Cir — na melhor janela do outono, alcançada no primeiro dia útil da viagem.</p></div>
+      <div class="card"><div class="num">II</div><h3>O voo sobre o lago</h3><p>Parapente tandem decolando do alto do Monte Baldo, com o Garda inteiro — 50 km de água entre paredões — abrindo embaixo dos pés.</p></div>
+      <div class="card"><div class="num">III</div><h3>As bodas sobre o Tirreno</h3><p>Sexta, 09 de outubro: a rota alta de Riomaggiore a Portovenere, o pôr do sol em San Pietro na ponta da falésia, uma garrafa à noite. Sem rito — o dia inteiro é a celebração.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LOGÍSTICA ================= -->
+<section id="logistica">
+  <div class="wrap">
+    <div class="eyebrow">Logística</div>
+    <h2>Um carro, treze dias, quatro trocas de base</h2>
+    <p class="lede">Carro retirado no BLQ na chegada e devolvido no BLQ na entrada da cidade, 13 dias e ~1.100 km depois — ele nunca toca uma ZTL. Esforço de estrada decrescente após a perna do mar; nenhuma noite técnica, nenhum buffer morto: as pontas de meio-dia (chegada) e 17h45 (saída) dispensam ambos.</p>
+    <div class="tblwrap" style="margin-top:26px">
+      <table>
+        <thead><tr><th>Perna</th><th class="mono">Modal</th><th class="mono">Tempo</th><th>Notas</th></tr></thead>
+        <tbody>
+          <tr><td>GRU → Bologna BLQ</td><td class="mono">Voo (emissão escolhida)</td><td class="mono">pouso 11h10 · 29/09</td><td>BLQ é pequeno: imigração + malas ~45 min.</td></tr>
+          <tr><td>BLQ → Ortisei</td><td class="mono">Carro (retirada 12h15)</td><td class="mono">3h · ~300 km</td><td>A1 até Modena + A22 do Brennero + SS242. Chegada 15h45, com luz.</td></tr>
+          <tr><td>Ortisei → Riva del Garda</td><td class="mono">Carro</td><td class="mono">1h55 · 145 km</td><td>SS242 + A22 sul (Rovereto Sud) + SS240.</td></tr>
+          <tr><td>Riva → Levanto</td><td class="mono">Carro</td><td class="mono">~3h45 · ~340 km</td><td>A perna mais longa: Brescia → A21 → A1 → A15 (passo da Cisa). Almoço em Cremona no meio.</td></tr>
+          <tr><td>Em Cinque Terre (5 dias)</td><td class="mono">Trem regional + barcos</td><td class="mono">4–12 min entre vilas</td><td>O carro dorme em Levanto. Cinque Terre Card cobre trilhas + trens ilimitados.</td></tr>
+          <tr><td>Levanto → Modena</td><td class="mono">Carro</td><td class="mono">2h30 · 215 km</td><td>A15 pelo passo da Cisa + A1 — a autostrada cênica dos Apeninos.</td></tr>
+          <tr><td>Modena → Parma → Bologna BLQ</td><td class="mono">Carro (devolução ~15h45 de 12/10)</td><td class="mono">45 min + 1h</td><td>Abastecer antes da devolução (tanque cheio). Fim dos 13 dias.</td></tr>
+          <tr><td>BLQ → centro de Bologna</td><td class="mono">Marconi Express</td><td class="mono">7 min</td><td>Monotrilho direto à estação central; hotel a pé sob os pórticos.</td></tr>
+          <tr><td>Bologna → BLQ (dia 14)</td><td class="mono">Marconi Express 15h00</td><td class="mono">7 min</td><td>No terminal 15h15 para o voo das <strong>17h45</strong> — 2h30 de folga por desenho.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="margin-top:44px">Matriz de deslocamentos, dia a dia</h3>
+    <p class="small muted" style="margin:6px 0 16px">Tempos sem trânsito anômalo, por tipo de via (autostrada 110–120 km/h médios; vale 55–65; passo e colina 35–45). Regra da casa: +10–15 min de folga por perna de estrada.</p>
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th class="mono">Dia</th><th>Trecho</th><th>Via</th><th class="mono">km</th><th class="mono">Tempo</th><th>Nota</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">D1</td><td>BLQ → Modena Nord → Chiusa → Ortisei</td><td>A1 + A22 + SS242</td><td class="mono">300</td><td class="mono">30 min + 2h + 25 min</td><td>Pedágios ~€22; café na área de serviço da A22.</td></tr>
+          <tr><td class="mono">D2</td><td>Ortisei → Seceda (2.500 m)</td><td>Teleférico Ortisei–Furnes–Seceda</td><td class="mono">—</td><td class="mono">~15 min</td><td>Volta por Col Raiser + ônibus 350/352 (10 min).</td></tr>
+          <tr><td class="mono">D3</td><td>Ortisei → ponto da ferrata</td><td>Carro com o guia</td><td class="mono">10–18</td><td class="mono">20–35 min</td><td>Passo Gardena ou Col Raiser, conforme rota.</td></tr>
+          <tr><td class="mono">D4</td><td>Ortisei → Rovereto Sud → Riva</td><td>SS242 + A22 sul + SS240</td><td class="mono">145</td><td class="mono">1h55</td><td>Saída 9h; malas no hotel 11h.</td></tr>
+          <tr><td class="mono">D5</td><td>Riva ↔ Arco/Torbole (canyoning)</td><td>Local</td><td class="mono">5–8</td><td class="mono">10–15 min</td><td>Dia num raio de 10 km.</td></tr>
+          <tr><td class="mono">D6</td><td>Riva ↔ Malcesine (tandem)</td><td>SS249 Gardesana Orientale</td><td class="mono">14+14</td><td class="mono">25–35 min cada</td><td>Teleférico do Baldo: 2 tramos, ~15 min.</td></tr>
+          <tr><td class="mono">D7</td><td>Riva → Brescia → Cremona → Levanto</td><td>SS45bis + A21 + A1 + A15</td><td class="mono">340</td><td class="mono">~3h45</td><td>A perna mais longa; almoço em Cremona. Carro estaciona por 5 dias.</td></tr>
+          <tr><td class="mono">D8</td><td>Levanto ↔ Monterosso/Vernazza/Corniglia</td><td>Trem regional (Cinque Terre Card)</td><td class="mono">—</td><td class="mono">4–12 min entre vilas</td><td>Trilha na ida, trem na volta.</td></tr>
+          <tr><td class="mono">D9</td><td>Kayak costa de Monterosso</td><td>Trem + operador</td><td class="mono">—</td><td class="mono">meia jornada</td><td>Mar mexido → barco a Portovenere.</td></tr>
+          <tr><td class="mono">D10</td><td>Punta Mesco ou vilas do sul</td><td>A pé / trem</td><td class="mono">—</td><td class="mono">livre</td><td>Dia-colchão do bloco.</td></tr>
+          <tr><td class="mono">D11</td><td>Levanto → Riomaggiore (trem) → Portovenere (trilha) → volta</td><td>Trem + rota alta + barco/ônibus via La Spezia</td><td class="mono">12 (trilha)</td><td class="mono">5h trilha + 1h volta</td><td>As bodas. Última corrida de barco: conferir horário na véspera.</td></tr>
+          <tr><td class="mono">D12</td><td>Levanto → Modena</td><td>A15 (passo da Cisa) + A1</td><td class="mono">215</td><td class="mono">2h30</td><td>Saída 9h30.</td></tr>
+          <tr><td class="mono">D13</td><td>Modena ↔ caseificio / acetaia</td><td>Carro, raio local</td><td class="mono">20–50</td><td class="mono">20–40 min por perna</td><td>Caseificio às 7h45 — a coalhada não espera.</td></tr>
+          <tr><td class="mono">D14</td><td>Modena → Parma → Bologna BLQ → centro</td><td>A1 + Marconi Express</td><td class="mono">60 + 95</td><td class="mono">45 min + 1h + 7 min</td><td>Devolução ~15h45; o carro nunca entra na ZTL de Bologna.</td></tr>
+          <tr><td class="mono">D15</td><td>Intra-Bologna</td><td>Pés (pórticos)</td><td class="mono">—</td><td class="mono">—</td><td>San Luca opcional: 666 arcos, 1h de subida.</td></tr>
+          <tr><td class="mono">D16</td><td>Centro → BLQ</td><td>Marconi Express 15h00</td><td class="mono">—</td><td class="mono">7 min</td><td>Terminal 15h15; voo 17h45.</td></tr>
+          <tr class="total"><td class="mono">Σ</td><td>Total ao volante na viagem</td><td>—</td><td class="mono">~1.100</td><td class="mono">~13h</td><td>Maior perna: D7 (~3h45, com parada). 4 trocas de base em 15 noites.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small muted" style="margin-top:14px">ZTL: o carro nunca entra em centro histórico nenhum — Ortisei e Riva têm estacionamento de hotel, Levanto tem estacionamento aberto, Modena tem bolsões fora da ZTL, e Bologna recebe vocês sem carro. Multa de ZTL chega meses depois via locadora, com taxa.</p>
+  </div>
+</section>
+
+<!-- ================= ORÇAMENTO ================= -->
+<section id="orcamento" style="padding-top:0">
+  <div class="wrap">
+    <div class="eyebrow wine">Orçamento · 2 pessoas · terra</div>
+    <h2>Dentro do teto — pela primeira vez com folga</h2>
+    <p class="lede">Régua conservadora de <span class="mono">EUR 6,00</span>; hospedagem em faixa de outubro, a validar. Sem voos internos, sem jantares de rito, sem noites técnicas — e com Levanto, Modena e Bologna dormindo mais barato que Veneza e Florença jamais dormiriam: <strong>a enxuta fecha em ~R$ 29,6 mil, dentro do teto</strong>; a padrão pede ~R$ 35 mil.</p>
+    <div class="tblwrap" style="margin-top:26px">
+      <table>
+        <thead><tr><th>Categoria</th><th class="mono">Enxuta</th><th class="mono">Padrão</th><th class="mono">Recomendada</th><th>O que muda</th></tr></thead>
+        <tbody>
+          <tr><td>Hospedagem (15 noites)</td><td class="mono">€ 1.730</td><td class="mono">€ 2.195</td><td class="mono">€ 2.900</td><td>Enxuta: garni/B&amp;B. Recomendada: spa em Ortisei, mar em Levanto, boutique no Quadrilatero.</td></tr>
+          <tr><td>Carro 13 dias + combustível + pedágios</td><td class="mono">€ 720</td><td class="mono">€ 780</td><td class="mono">€ 780</td><td>BLQ↔BLQ, sem taxa one-way. ~1.100 km.</td></tr>
+          <tr><td>Experiências de aventura (guia ferrata, tandem, canyoning, kayak, teleféricos)</td><td class="mono">€ 900</td><td class="mono">€ 1.100</td><td class="mono">€ 1.350</td><td>Enxuta: ferrata em grupo. Padrão: guia privado no dia central. Recomendada: segundo dia guiado no Garda.</td></tr>
+          <tr><td>Experiências gastronômicas (caseificio, acetaia, degustações, sfogline)</td><td class="mono">€ 120</td><td class="mono">€ 160</td><td class="mono">€ 260</td><td>Recomendada inclui aula de massa e vertical de balsâmico.</td></tr>
+          <tr><td>Ingressos, Cinque Terre Card &amp; transportes locais</td><td class="mono">€ 160</td><td class="mono">€ 190</td><td class="mono">€ 190</td><td>Cards de trilha+trem, barcos, Marconi Express, torres.</td></tr>
+          <tr><td>Mesa (16 dias, sem jantares de rito)</td><td class="mono">€ 1.300</td><td class="mono">€ 1.550</td><td class="mono">€ 1.850</td><td>Stube, osterias, trattorias — a Emília come melhor e mais barato que qualquer bloco anterior.</td></tr>
+          <tr class="total"><td>Total terra</td><td class="mono">€ 4.930<br>≈ R$ 29,6 mil</td><td class="mono">€ 5.975<br>≈ R$ 35,9 mil</td><td class="mono">€ 7.330<br>≈ R$ 44,0 mil</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small muted" style="margin-top:14px">Aéreo internacional fora da conta de terra, como nos demais dossiês — emissão GRU↔BLQ definida (29/09 11h10 / 14/10 17h45).</p>
+  </div>
+</section>
+
+<!-- ================= RESERVAS ================= -->
+<section id="reservas" style="padding-top:0">
+  <div class="wrap">
+    <div class="eyebrow">Pipeline de reservas</div>
+    <h2>O que trava a viagem, em ordem</h2>
+    <div class="gate"><strong>Gate — esta semana (até 19/jul):</strong> emissão do aéreo GRU↔BLQ e os dois itens de agenda curta: o guia de montanha para 01/10 e a base de Levanto com a sexta-feira das bodas no meio. Nenhum dos três espera agosto.</div>
+    <div class="prazo">
+      <h3><span class="dl">até 31/jul</span>Os que esgotam primeiro</h3>
+      <ul>
+        <li><strong>Emissão GRU↔BLQ</strong> (29/09 / 14/10)</li>
+        <li><strong>Guia UIAGM</strong> (Catores, Ortisei) — dia inteiro de ferrata, qui 01/10</li>
+        <li>Hotel de Ortisei — 3 noites, 29/09–02/10</li>
+        <li><strong>Base de Levanto — 5 noites, 05–10/10</strong> (sexta das bodas no meio; outubro ainda é temporada)</li>
+        <li>Tandem no Monte Baldo — alvo dom 04/10, cláusula de remarcação</li>
+      </ul>
+    </div>
+    <div class="prazo">
+      <h3><span class="dl">até 15/ago</span>Estrutura</h3>
+      <ul>
+        <li>Carro 13 dias, BLQ↔BLQ</li>
+        <li>Canyoning (Rio Palvico) — sáb 03/10</li>
+        <li>Kayak Cinque Terre — qua 07/10</li>
+        <li>Hotéis de Riva, Modena e Bologna</li>
+        <li><strong>Caseificio (manhã) e acetaia — dom 11/10</strong>: visitas agendadas, não walk-in</li>
+      </ul>
+    </div>
+    <div class="prazo">
+      <h3><span class="dl">até 10/set</span>Verificações de grade</h3>
+      <ul>
+        <li><strong>Grade de fechamento dos teleféricos</strong> (Seceda, Col Raiser) — publicada no fim do verão; confirmar 30/09–01/10</li>
+        <li>Status dos trechos do Sentiero Azzurro (o parque publica fechamentos por chuva/obra)</li>
+        <li>Osteria da despedida em Bologna — ter 13/10</li>
+        <li>Torre Asinelli: verificar se reaberta</li>
+      </ul>
+    </div>
+    <div class="prazo">
+      <h3><span class="dl">semana da viagem</span>Finais</h3>
+      <ul>
+        <li>Meteo 30/09–04/10 — ordenar ferrata × Seceda × canyoning × tandem com guia e operadores</li>
+        <li>Horário da última corrida de barco Portovenere→La Spezia para o dia 09</li>
+        <li>Check-in online do voo das 17h45</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RISCOS ================= -->
+<section id="riscos" style="padding-top:0">
+  <div class="wrap">
+    <div class="eyebrow wine">Riscos &amp; mitigação</div>
+    <h2>O que pode dar errado — e o que fazer</h2>
+    <div class="riscos-wrap">
+      <div class="risco risco-head"><div>Risco</div><div>Impacto</div><div>Mitigação</div></div>
+      <div class="risco"><div class="rname">Tempo de montanha nas Dolomitas</div><div class="rimp">Com 3 noites, a folga da ferrata é só a permuta D2↔D3 — uma frente de 3 dias engole o bloco.</div><div class="rmit">O hedge é geográfico: Arco/Garda a 2h, em plena alta temporada de escalada, absorve a cota vertical (Colodri, Cima SAT, falésias). O guia decide a rota na véspera; Bolzano + Ötzi é o plano de chuva.</div></div>
+      <div class="risco"><div class="rname">Fechamento antecipado de teleféricos</div><div class="rimp">Algumas linhas de passo encerram na virada de setembro; sem lift, o Seceda vira caminhada longa.</div><div class="rmit">As linhas da própria Ortisei historicamente vão além da janela — mas a grade oficial sai no fim do verão: item de verificação de setembro no pipeline.</div></div>
+      <div class="risco"><div class="rname">Vento no tandem / chuva no canyoning</div><div class="rimp">Ambos cancelam por decisão do operador na hora.</div><div class="rmit">Dois dias intercambiáveis (D5↔D6) + manhã do D7 como última janela do tandem antes da partida; reembolso se nada abrir.</div></div>
+      <div class="risco"><div class="rname">Trechos do Sentiero Azzurro fechados</div><div class="rimp">Chuva forte fecha seções da trilha clássica com frequência (o parque é rigoroso pós-deslizamentos).</div><div class="rmit">A costa tem rede redundante: rota alta dos santuários, Punta Mesco, anel de Manarola — e a rota das bodas (Riomaggiore→Portovenere) é gerida à parte. Status no site do parque na véspera.</div></div>
+      <div class="risco"><div class="rname">Temporal ligure de outono</div><div class="rimp">O fim de outubro é historicamente a janela de temporais na Ligúria; início do mês tem risco baixo, não nulo.</div><div class="rmit">O bloco cai em 05–10/10, dentro da janela boa; dia de temporal vira Portovenere/La Spezia de trem e mesa longa. O D10 é colchão por desenho.</div></div>
+      <div class="risco"><div class="rname">Multidão nas Cinque Terre</div><div class="rimp">Mesmo em outubro, excursões de cruzeiro lotam as vilas entre 10h e 16h.</div><div class="rmit">Base em Levanto (fora do fluxo), trilhas às 8h30, jantares nas vilas depois das 18h quando os grupos evaporam — e a rota alta das bodas é estruturalmente vazia.</div></div>
+      <div class="risco"><div class="rname">ZTL de Bologna e Modena</div><div class="rimp">As duas têm ZTL agressivas por câmera; multa via locadora meses depois.</div><div class="rmit">Modena: bolsão fora da ZTL indicado pelo hotel. Bologna: o carro morre no BLQ <em>antes</em> de entrar na cidade — Marconi Express faz o resto.</div></div>
+      <div class="risco"><div class="rname">Fadiga acumulada</div><div class="rimp">Ferrata + canyoning + tandem + 25 km de trilha costeira em 11 dias cobra.</div><div class="rmit">A arquitetura decresce: depois das bodas (D11), zero exigência física — Emília e Bologna são blocos de garfo.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRÁTICO ================= -->
+<section id="pratico" style="padding-top:0">
+  <div class="wrap">
+    <div class="eyebrow">Prático</div>
+    <h2>Clima, mala e miudezas</h2>
+    <div class="prat">
+      <div class="p-card">
+        <h4>Clima esperado · 29/09–14/10</h4>
+        <ul>
+          <li>Ortisei (1.236 m) <span class="mono">4–16 °C</span> · geada possível de manhã</li>
+          <li>Em cota de ferrata (2.000 m+) <span class="mono">0–10 °C</span></li>
+          <li>Riva del Garda <span class="mono">11–21 °C</span></li>
+          <li>Levanto / Cinque Terre <span class="mono">13–21 °C</span> · mar ~21 °C</li>
+          <li>Modena / Bologna <span class="mono">10–21 °C</span></li>
+          <li>Pôr do sol <span class="mono">18h52 → 18h24</span> ao longo da viagem</li>
+        </ul>
+      </div>
+      <div class="p-card">
+        <h4>Mala</h4>
+        <ul>
+          <li>Sistema de camadas + isolante leve para 2.000 m (o kit de Patagônia, versão enxuta)</li>
+          <li>Bota/tênis de trilha amaciado — a costa ligure é de degrau de pedra</li>
+          <li>Kit de ferrata e capacete: o guia fornece; neoprene: o operador fornece</li>
+          <li>Roupa de banho e toalha leve (mar + spas)</li>
+          <li>Espaço de mala na volta: queijo, balsâmico e garrafas voltam com vocês</li>
+        </ul>
+      </div>
+      <div class="p-card">
+        <h4>Dinheiro &amp; conexão</h4>
+        <ul>
+          <li>Cartão em quase tudo; €150 em espécie para refúgios, focaccerias e bancas</li>
+          <li>Coperto de €2–4/pessoa é praxe; gorjeta não é obrigação</li>
+          <li>eSIM europeia; mapas offline no carro (vales sem sinal)</li>
+          <li>Tomadas tipo F/L</li>
+        </ul>
+      </div>
+      <div class="p-card">
+        <h4>Idioma &amp; ritmo</h4>
+        <ul>
+          <li>Val Gardena fala alemão e ladino antes do italiano — "Grüß Gott" abre portas</li>
+          <li>Cozinhas de montanha jantam às 19h; a Emília janta às 20h30 — o relógio do estômago migra com vocês</li>
+          <li>Cinque Terre entre 10h e 16h é dos grupos; manhã cedo e noite são de quem dorme perto</li>
+          <li>Bologna se anda por baixo: 40 km de pórticos valem por guarda-chuva</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Laço de Bologna · Dolomitas → Ligúria → Food Valley · 29/09–14/10 de 2026 · dossiê de viagem</span>
+    <span>Sucessor dos dossiês Turquia, Grande Sul e Arco Alpino-Vêneto</span>
+    <span class="mono">v1.1 · jul 2026</span>
+  </div>
+</footer>
+
+</body>
+</html>
